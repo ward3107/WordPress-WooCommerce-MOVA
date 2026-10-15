@@ -54,6 +54,7 @@
     if($('#orderHistoryDialog').open)shop.renderHistory();
     if($('#sizeGuideDialog').open)shop.renderSizeGuide();
     safeWrite('mova-language',state.lang);
+    window.MOVA_FLAGSHIP?.translate();
   }
 
   function renderProducts(){return shop.renderProducts();}
@@ -190,7 +191,7 @@
     scrollFrame=0;$('#siteHeader').classList.toggle('scrolled',window.scrollY>20);
     if(motionIsReduced()||document.hidden)return;
     const hero=$('#heroStage').getBoundingClientRect();
-    if(hero.bottom>0&&hero.top<window.innerHeight){const progress=Math.max(0,Math.min(1,window.scrollY/700));$('#heroShoe').style.transform=`rotate(${-11+progress*7+pointerX*2}deg) rotateY(${pointerX*5}deg) rotateX(${-pointerY*3}deg)`;}
+    if(!document.body.dataset.experience&&hero.bottom>0&&hero.top<window.innerHeight){const progress=Math.max(0,Math.min(1,window.scrollY/700));$('#heroShoe').style.transform=`rotate(${-11+progress*7+pointerX*2}deg) rotateY(${pointerX*5}deg) rotateX(${-pointerY*3}deg)`;}
     const detail=$('#detailCanvas').getBoundingClientRect();
     if(detail.bottom>0&&detail.top<window.innerHeight){const progress=(window.innerHeight*.5-(detail.top+detail.height*.5))/window.innerHeight;$('#detailCanvas').style.setProperty('--detail-scroll',`${Math.max(-12,Math.min(12,progress*25))}px`);$('#detailCanvas').style.setProperty('--detail-rotation',`${Math.max(-3,Math.min(3,progress*7))}deg`);}
   }
@@ -205,6 +206,7 @@
     if(event.key==='mova-cart'){state.cart=core.sanitizeCart(safeRead('mova-cart',[]));updateCartCount();renderCart();if($('#checkoutDialog').open)renderCheckout();}
   });
   applyLanguage();
+  window.MOVA_FLAGSHIP?.init({t,reduced:motionIsReduced});
   window.MOVA_INTRO?.init({t,reduced:motionIsReduced});
   if('IntersectionObserver' in window){
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.1});

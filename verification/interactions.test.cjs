@@ -25,7 +25,7 @@ w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEven
 w.fetch=()=>{throw new Error('Demo must not make a network request');};
 w.localStorage.setItem('mova-cart','corrupt JSON');
 w.localStorage.setItem('mova-favorites',JSON.stringify(['unknown',{id:'move'}]));
-w.sessionStorage.setItem('mova-opening-v8','1');
+w.sessionStorage.setItem('mova-opening-v9','1');
 for(const file of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js'])w.eval(fs.readFileSync(path.join(root,'dist',file),'utf8'));
 w.eval(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'));
 
@@ -73,13 +73,13 @@ w.eval(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'));
  click('#menuButton');click('#menuFavorites');assert.ok(!$('#menuDialog').open);assert.equal($('#favoritesButton').getAttribute('aria-pressed'),'true');click('#resetFilters');
  click('[data-card-color="move"][data-color-id="mint"]');
  click('[data-product="move"] .product-open');assert.equal($('[data-color-option="mint"]').getAttribute('aria-pressed'),'true');click('#productDialog > [data-close-dialog]');
- click('[data-detail="mesh"]');assert.equal($('#detailCanvas').dataset.view,'mesh');assert.ok($('.detail-hotspot').hidden);
- click('.detail-tab[data-detail="whole"]');assert.equal($('.detail-hotspot').hidden,false);
+ click('[data-detail="mesh"]');assert.equal($('#detailCanvas').dataset.view,'mesh');assert.equal($('.detail-tab[data-detail="mesh"]').getAttribute('aria-pressed'),'true');
+ click('.detail-tab[data-detail="whole"]');assert.equal($('.detail-tab[data-detail="whole"]').getAttribute('aria-pressed'),'true');
  click('[data-mood="focus"]');await new Promise(resolve=>setTimeout(resolve,190));
  assert.equal($('#moodStage').dataset.mood,'focus');assert.ok($('#moodImage').src.endsWith('/assets/headphones.webp'));
  click('#moodExplore');assert.equal($('#productDialogTitle').textContent,'FOCUS 02');click('#productDialog > [data-close-dialog]');
 
- for(const [lang,dir,headline] of [['en','ltr','Your everyday.'],['ar','rtl','يومك.'],['he','rtl','היום שלך.']]){
+ for(const [lang,dir,headline] of [['en','ltr','Made to move.'],['ar','rtl','صُمّم للحركة.'],['he','rtl','נועד לזוז.']]){
    changeLang(lang);assert.equal(d.documentElement.dir,dir);assert.equal(d.documentElement.lang,lang);assert.equal($('#heroTitle span').textContent,headline);
    assert.equal($$('.product-card').length,12);assert.equal($('[data-filter="all"]').getAttribute('aria-pressed'),'true');
    assert.equal($('#cartCount').textContent,'3');

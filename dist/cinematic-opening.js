@@ -1,7 +1,7 @@
 /* A short, skippable product title sequence. No video/audio download or gate. */
 window.MOVA_INTRO=(()=>{
  'use strict';
- const KEY='mova-opening-v8';
+ const KEY='mova-opening-v9';
  let initialized=false,active=false,closing=false,reduced=()=>true,previousFocus=null;
  let exitTimer=0,closeTimer=0,guardTimer=0,fallback=[];
  const root=()=>document.getElementById('cinematicOpening');
@@ -10,6 +10,7 @@ window.MOVA_INTRO=(()=>{
  function clearTimers(){clearTimeout(exitTimer);clearTimeout(closeTimer);clearTimeout(guardTimer);exitTimer=closeTimer=guardTimer=0;}
  function complete(){
   if(!active)return;active=false;closing=false;clearTimers();
+  window.MOVA_FLAGSHIP?.endHandoff();
   const el=root();el.classList.remove('is-playing','is-leaving','is-still');
   if(el.open&&typeof el.close==='function')el.close();else el.removeAttribute('open');
   document.documentElement.classList.remove('intro-active');
@@ -20,7 +21,7 @@ window.MOVA_INTRO=(()=>{
  }
  function finish(immediate=false){
   if(!active)return;if(immediate||reduced()){complete();return;}if(closing)return;
-  closing=true;clearTimeout(exitTimer);root().classList.add('is-leaving');closeTimer=setTimeout(complete,550);
+  closing=true;clearTimeout(exitTimer);window.MOVA_FLAGSHIP?.handoff(root());root().classList.add('is-leaving');closeTimer=setTimeout(complete,550);
  }
  function play(manual=true){
   const el=root();if(!el)return false;
@@ -38,6 +39,7 @@ window.MOVA_INTRO=(()=>{
    // The existing product cutouts are reused. Lazy photos are promoted only
    // when the opening is actually watched, not on every catalog load.
    el.querySelectorAll('img').forEach(img=>{img.loading='eager';});
+   window.dispatchEvent(new CustomEvent('mova:intro-start'));
    el.classList.remove('is-playing');void el.offsetWidth;el.classList.add('is-playing');
    document.getElementById('skipOpening').focus({preventScroll:true});
    exitTimer=setTimeout(()=>finish(),reduced()?1100:3600);

@@ -1,14 +1,15 @@
+// Archived V8 lab bridge. The live flagship is covered by flagship.test.cjs.
 const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
 const {JSDOM,VirtualConsole}=require(process.env.MOVA_DOM_MODULE||'jsdom');
 const root=path.join(__dirname,'..'),errors=[],consoleCapture=new VirtualConsole();
 consoleCapture.on('jsdomError',e=>errors.push(e.message));
-const dom=new JSDOM(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'),{url:'https://mova-motion-store.vasele66.chatgpt.site',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:consoleCapture});
+const dom=new JSDOM(fs.readFileSync(path.join(root,'verification/fixtures/legacy-lab-v8.html'),'utf8'),{url:'https://mova-motion-store.vasele66.chatgpt.site',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:consoleCapture});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s),$$=s=>[...d.querySelectorAll(s)];
 const media={matches:false,addEventListener(){},addListener(){}};
 w.matchMedia=()=>media;w.HTMLElement.prototype.scrollIntoView=function(){};
 w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
 // No layout/WebGL is simulated. This test covers only the real DOM control bridge.
-w.sessionStorage.setItem('mova-opening-v8','1');
+w.sessionStorage.setItem('mova-opening-v9','1');
 for(const file of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js'])w.eval(fs.readFileSync(path.join(root,'dist',file),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/shoe-lab.js'),'utf8'));
 let options,calls=0,latest,resets=0,label,visible;
 const adapter={setState(s){latest=s;},setVisible(v){visible=v;},setLabel(v){label=v;},resetCamera(){resets++;},dispose(){}};
