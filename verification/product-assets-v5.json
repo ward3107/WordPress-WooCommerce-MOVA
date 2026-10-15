@@ -1,0 +1,60 @@
+{
+  "engine": "Built-in imagegen",
+  "sharedPrompt": "Original realistic premium MOVA product photography. Warm studio light. Whole product on a transparent background; no logo, text or watermark.",
+  "assets": [
+    {
+      "id": "pace",
+      "prompt": "One premium low-top court sneaker, off-white leather with a muted sage heel tab, thin warm gum sole, cream flat laces. Low sleek silhouette, entirely different from a chunky running shoe. Three-quarter view toe pointing left.",
+      "generatedSource": "exec-95d6a12e-5649-4aa2-bd3a-72ad7ad9b512.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/pace.webp"
+    },
+    {
+      "id": "slide",
+      "prompt": "A pair of sculptural terracotta recovery slide sandals with broad softly rounded straps and thick molded footbeds, casually overlapping, three-quarter view.",
+      "generatedSource": "exec-91bc10b8-a470-4846-a9e0-e9f9f4684682.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/slide.webp"
+    },
+    {
+      "id": "pulse",
+      "prompt": "One open compact ivory wireless earbud charging case with two terracotta and ivory earbuds hovering immediately above it, precision industrial design, three-quarter view.",
+      "generatedSource": "exec-a407562f-d6b5-4abd-ac73-1a15977d046a.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/pulse.webp"
+    },
+    {
+      "id": "echo",
+      "prompt": "One small forest-green portable speaker with woven cylindrical body, rounded ends, warm cream woven carry loop and subtle orange button. Three-quarter view, no interface text.",
+      "generatedSource": "exec-295e3500-f60c-4bc4-9275-1bf822f1624f.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/echo.webp"
+    },
+    {
+      "id": "roam",
+      "prompt": "One premium soft weekend duffel bag in deep forest green woven nylon with cream webbing handles and terracotta zipper pulls, detachable strap naturally folded. Three-quarter view.",
+      "generatedSource": "exec-4be2f5f8-20ac-415e-9601-066e579eefb4.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/roam.webp"
+    },
+    {
+      "id": "orbit",
+      "prompt": "One compact crescent crossbody bag in soft warm sand leather, terracotta adjustable shoulder strap arranged elegantly above the bag, minimal rounded metal buckle. Three-quarter view.",
+      "generatedSource": "exec-f2802b6c-c8df-478e-ba72-70071e0c56b0.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/orbit.webp"
+    },
+    {
+      "id": "form",
+      "prompt": "One oversized heavyweight sage green hoodie, front view with sleeves naturally draping, substantial hood, kangaroo pocket, premium cotton texture. Ghost mannequin photograph, no body or hanger visible.",
+      "generatedSource": "exec-c52f6c93-a8a5-483d-9fc6-2a0b343636f5.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/form.webp"
+    },
+    {
+      "id": "shell",
+      "prompt": "One light terracotta and cream technical windbreaker jacket, front view with sleeves naturally down, stand collar, full front zip, subtle color-block panels. Ghost mannequin photograph, no body or hanger visible.",
+      "generatedSource": "exec-89cb1c66-e81c-4388-b339-8ed2f21785d0.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/shell.webp"
+    },
+    {
+      "id": "loop",
+      "prompt": "One warm ivory stainless steel water bottle with rounded terracotta screw cap and thick sage green silicone carry loop, beside its own loose cap to show detail, elegant cylindrical shape, three-quarter view.",
+      "generatedSource": "exec-d6ffdd17-59b1-481b-b3cd-786aa1b29f13.png",
+      "path": "/workspace/sites/mova-flagship/dist/assets/loop.webp"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+/* Pointer gesture math and the real DOM adapter; no browser pixels simulated. */
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {JSDOM}=require(process.env.MOVA_DOM_MODULE||'jsdom');
+const dom=new JSDOM('<!doctype html><div id="sheet"><div id="view" tabindex="0"><div id="track"></div><output id="meter"></output></div></div>',{runScripts:'outside-only',pretendToBeVisual:true});
+const w=dom.window,d=w.document,view=d.querySelector('#view'),track=d.querySelector('#track'),sheet=d.querySelector('#sheet'),meter=d.querySelector('#meter');
+let clock=1000,width=360,height=300,frameId=0;const frames=new Map(),captures=new Set();
+Object.defineProperty(w.performance,'now',{value:()=>clock});
+w.requestAnimationFrame=fn=>{frames.set(++frameId,fn);return frameId;};w.cancelAnimationFrame=id=>frames.delete(id);
+const flush=()=>{for(let i=0;frames.size&&i<20;i++){const callbacks=[...frames.values()];frames.clear();callbacks.forEach(fn=>fn(clock));}};
+view.getBoundingClientRect=()=>({left:10,top:20,width,height,right:10+width,bottom:20+height});
+view.setPointerCapture=id=>captures.add(id);view.releasePointerCapture=id=>captures.delete(id);view.hasPointerCapture=id=>captures.has(id);
+w.eval(fs.readFileSync(path.join(__dirname,'../dist/product-zoom.js'),'utf8'));
+const api=w.MOVA_ZOOM,box={width:360,height:300,size:300},close=(a,b)=>assert.ok(Math.abs(a-b)<1e-5,`${a} != ${b}`);
+let s=api.bounded({scale:100,x:1e6,y:-1e6},box);assert.equal(s.scale,12);assert.equal(s.x,1620);assert.equal(s.y,-1650);
+s=api.bounded({scale:0,x:999,y:-999},box);assert.equal(s.scale,1);assert.equal(s.x,0);assert.equal(s.y,0);
+const before={scale:2,x:10,y:-20},point={x:30,y:40};s=api.around(before,3,point,box);close((point.x-s.x)/s.scale,(point.x-before.x)/before.scale);close((point.y-s.y)/s.scale,(point.y-before.y)/before.scale);
+let changes=0,intents=0;
+const zoom=api.attach({viewport:view,track,readout:meter,scrollParent:sheet,onState:()=>changes++,onIntent:()=>intents++});flush();
+const fire=(type,id,x,y,more={})=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId:id,clientX:x,clientY:y,pointerType:'touch',button:0,...more});view.dispatchEvent(e);flush();return e;};
+const wheel=(delta,ctrlKey=false)=>{const e=new w.Event('wheel',{bubbles:true,cancelable:true});Object.assign(e,{deltaY:delta,deltaMode:0,ctrlKey,clientX:190,clientY:170});view.dispatchEvent(e);flush();return e;};
+assert.equal(zoom.snapshot().scale,1);assert.equal(meter.textContent,'1.0×');
+fire('pointerdown',1,150,170);fire('pointerdown',2,230,170);fire('pointermove',2,390,170);
+s=zoom.snapshot();close(s.scale,3);close(s.x,80);close(s.y,0);assert.equal(s.pointers,2);assert.ok(view.classList.contains('is-zoomed'));assert.equal(meter.textContent,'3.0×');
+fire('pointerup',2,390,170);const old=zoom.snapshot();fire('pointermove',1,180,190);s=zoom.snapshot();close(s.scale,3);close(s.x,old.x+30);close(s.y,old.y+20);
+fire('pointercancel',1,180,190);assert.equal(zoom.snapshot().pointers,0);const cancelled=JSON.stringify(zoom.snapshot());fire('pointermove',1,300,300);assert.equal(JSON.stringify(zoom.snapshot()),cancelled);
+zoom.zoomAt(100);flush();assert.equal(zoom.snapshot().scale,12);zoom.reset();flush();assert.equal(zoom.snapshot().x,0);assert.equal(zoom.snapshot().y,0);
+// One-finger scrolling at 1× remains usable inside the captured image area.
+sheet.scrollTop=100;clock+=500;fire('pointerdown',3,190,150);fire('pointermove',3,190,180);assert.equal(sheet.scrollTop,70);assert.equal(zoom.snapshot().scale,1);fire('pointerup',3,190,180);
+// Touch double-tap is handled once even if a browser emits an emulated dblclick.
+clock+=500;fire('pointerdown',4,190,170);clock+=30;fire('pointerup',4,190,170);clock+=100;fire('pointerdown',5,190,170);clock+=30;fire('pointerup',5,190,170);assert.equal(zoom.snapshot().scale,3);
+fire('dblclick',0,190,170,{pointerType:'mouse'});assert.equal(zoom.snapshot().scale,3);
+clock+=700;fire('dblclick',0,190,170,{pointerType:'mouse'});assert.equal(zoom.snapshot().scale,1);
+view.blur();assert.equal(wheel(-50).defaultPrevented,false,'Ordinary page scrolling remains at 1× before focus');
+assert.equal(wheel(-80,true).defaultPrevented,true);assert.ok(zoom.snapshot().scale>1,'Trackpad pinch zooms through ctrl+wheel');
+zoom.reset();flush();view.focus();wheel(-80);assert.ok(zoom.snapshot().scale>1,'Focused desktop image accepts wheel zoom');
+const key=k=>{const e=new w.KeyboardEvent('keydown',{key:k,bubbles:true,cancelable:true});view.dispatchEvent(e);flush();return e;};
+key('+');const enlarged=zoom.snapshot().scale;key('-');assert.ok(zoom.snapshot().scale<enlarged);key('0');assert.equal(zoom.snapshot().scale,1);
+zoom.focus(.7,.6,4);flush();s=zoom.snapshot();assert.equal(s.scale,4);assert.ok(s.x<0&&s.y<0);const x=s.x,y=s.y;width=720;height=600;w.dispatchEvent(new w.Event('resize'));flush();close(zoom.snapshot().x,x*2);close(zoom.snapshot().y,y*2);
+key('ArrowRight');assert.ok(zoom.snapshot().x<x*2);assert.equal(key('Escape').defaultPrevented,true);assert.equal(zoom.snapshot().scale,1);
+fire('pointerdown',6,190,170);fire('pointerdown',7,250,170);zoom.destroy();flush();assert.equal(captures.size,0);assert.equal(frames.size,0);const n=changes;wheel(-100,true);assert.equal(changes,n,'Disposal removes listeners and pending rendering');assert.ok(intents>0);
+dom.window.close();console.log('PASS: anchored pinch, 12× bounds, one-finger continuation, cancellation, scrolling at 1×, double tap, emulated mouse events, trackpad, wheel, keys, component focus, resize and cleanup');

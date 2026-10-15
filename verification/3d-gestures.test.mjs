@@ -1,0 +1,25 @@
+/* Real OrbitControls and tap recognition, using a DOM canvas without WebGL. */
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import * as THREE from '../dist/assets/vendor/three.module.js';
+import {configureShoeControls,createShoeTapRecognizer} from '../dist/shoe-viewer.js';
+const require=createRequire(import.meta.url),{JSDOM}=require(process.env.MOVA_DOM_MODULE||'jsdom');
+const dom=new JSDOM('<!doctype html><canvas></canvas>'),w=dom.window,canvas=w.document.querySelector('canvas');
+Object.defineProperty(canvas,'clientWidth',{value:400});Object.defineProperty(canvas,'clientHeight',{value:400});
+canvas.setPointerCapture=()=>{};canvas.releasePointerCapture=()=>{};canvas.getBoundingClientRect=()=>({left:0,top:0,width:400,height:400});
+const camera=new THREE.OrthographicCamera(-2,2,2,-2,.1,50);camera.position.set(-3.97,3.42,8.52);
+const controls=configureShoeControls(camera,canvas);let taps=0,clock=1000;
+const recognizer=createShoeTapRecognizer(()=>taps++,()=>clock);
+canvas.addEventListener('pointerdown',recognizer.down);canvas.addEventListener('pointerup',recognizer.up);canvas.addEventListener('pointercancel',recognizer.cancel);
+const pointer=(type,id,x,y)=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId:id,pointerType:'touch',button:0,clientX:x,clientY:y,pageX:x,pageY:y});canvas.dispatchEvent(e);};
+assert.ok(controls.enableZoom&&controls.enablePan);assert.equal(controls.maxZoom,12);assert.equal(canvas.style.touchAction,'none');
+pointer('pointerdown',1,160,200);pointer('pointerdown',2,240,200);pointer('pointermove',2,360,200);
+assert.ok(camera.zoom>1.9&&camera.zoom<2.2,'Actual two-finger dolly increases the camera zoom');
+assert.ok(controls.target.length()>0,'Two-finger translation can inspect the enlarged model');
+pointer('pointermove',2,100000,200);assert.equal(camera.zoom,12,'High magnification is bounded');
+pointer('pointermove',2,161,200);assert.equal(camera.zoom,.7,'Pinching inward reaches the lower camera limit');
+pointer('pointerup',2,161,200);pointer('pointerup',1,160,200);assert.equal(taps,0,'A pinch never becomes a disassembly tap');
+clock+=500;pointer('pointerdown',3,200,200);clock+=30;pointer('pointerup',3,200,200);assert.equal(taps,1,'A deliberate one-finger tap remains available');
+clock+=500;pointer('pointerdown',4,200,200);pointer('pointermove',4,240,200);clock+=30;pointer('pointerup',4,240,200);assert.equal(taps,1,'Rotation is not mistaken for a tap');
+pointer('pointerdown',5,200,200);pointer('pointercancel',5,200,200);pointer('pointerup',5,200,200);assert.equal(taps,1,'Cancelled pointers cannot trigger a tap');
+controls.dispose();dom.window.close();console.log('PASS: actual 3D OrbitControls pinch, pan, 12× maximum, inward zoom, and separation of pinch/rotation/tap/cancel');

@@ -1,0 +1,55 @@
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+const {JSDOM,VirtualConsole}=require(process.env.MOVA_DOM_MODULE||'jsdom');
+const root=path.join(__dirname,'..'),errors=[],consoleCapture=new VirtualConsole();
+consoleCapture.on('jsdomError',e=>errors.push(e.message));
+const dom=new JSDOM(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'),{url:'https://mova-motion-store.vasele66.chatgpt.site',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:consoleCapture});
+const w=dom.window,d=w.document,$=s=>d.querySelector(s),$$=s=>[...d.querySelectorAll(s)];
+const media={matches:false,addEventListener(){},addListener(){}};
+w.matchMedia=()=>media;w.HTMLElement.prototype.scrollIntoView=function(){};
+w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
+// No layout/WebGL is simulated. This test covers only the real DOM control bridge.
+w.sessionStorage.setItem('mova-opening-v8','1');
+for(const file of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js'])w.eval(fs.readFileSync(path.join(root,'dist',file),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/shoe-lab.js'),'utf8'));
+let options,calls=0,latest,resets=0,label,visible;
+const adapter={setState(s){latest=s;},setVisible(v){visible=v;},setLabel(v){label=v;},resetCamera(){resets++;},dispose(){}};
+const click=s=>{assert.ok($(s),s);$(s).click();};
+(async()=>{
+ const a=w.MOVA_LAB.load(async o=>{options=o;calls++;return adapter;});
+ const b=w.MOVA_LAB.load(async()=>{calls++;return adapter;});await Promise.all([a,b]);assert.equal(calls,1,'One lazy initialization');
+ click('[data-lab-view="photo"]');assert.equal($('#shoeViewport').dataset.presentation,'photo');assert.equal(visible,false);assert.ok($('#shoeReset').disabled);
+ click('[data-lab-view="model"]');assert.equal($('#shoeViewport').dataset.presentation,'model');assert.ok(!$('#shoeReset').disabled);
+ assert.ok($('#shoeViewport').classList.contains('ready'));assert.equal($('#shoeViewport').getAttribute('aria-busy'),'false');
+ click('[data-shoe-mode="exploded"]');assert.equal(latest.explosion,100);assert.equal($('#shoeExplodeValue').textContent,'100%');
+ assert.equal($('[data-shoe-mode="exploded"]').getAttribute('aria-pressed'),'true');
+ click('[data-shoe-mode="skeleton"]');assert.ok(latest.skeleton);assert.equal(latest.explosion,75);
+ $('#shoeExplodeRange').value='31';$('#shoeExplodeRange').dispatchEvent(new w.Event('input'));assert.equal(latest.explosion,31);assert.ok(latest.skeleton);
+ click('[data-shoe-mode="assembled"]');assert.equal(latest.explosion,0);assert.ok(!latest.skeleton);
+ click('[data-shoe-layer="CAGE"]');assert.equal(latest.selected,'CAGE');assert.equal(latest.explosion,100);assert.equal($('[data-shoe-layer="CAGE"]').getAttribute('aria-pressed'),'true');
+ click('[data-shoe-layer="CAGE"]');assert.equal(latest.selected,null);
+ click('[data-shoe-color="mint"]');assert.equal(latest.variant,'mint');
+ click('#shoeAuto');assert.ok(latest.auto);options.onAutoStop();assert.ok(!latest.auto);
+ options.onZoomChange(4.5);assert.equal(latest.zoom,4.5);options.onZoomChange(1);assert.equal(latest.zoom,1);assert.equal($('#shoeZoomIn'),null);assert.equal($('#shoeZoomOut'),null);
+ options.onTap();assert.equal(latest.explosion,0);options.onTap();assert.equal(latest.explosion,100);
+ options.onReset();assert.equal(latest.explosion,0);assert.equal(latest.zoom,1);assert.equal(resets,1);
+ for(const [lang,title] of [['en','Style on the outside.\nA story on the inside.'],['ar','أسلوب من الخارج.\nقصة من الداخل.'],['he','מבחוץ זה סטייל.\nמבפנים זה סיפור.']]){
+  $('#language').value=lang;$('#language').dispatchEvent(new w.Event('change'));
+  assert.equal($('#anatomyTitle').textContent,title);assert.ok(label.includes('MOVE 01'));
+  click('.hero-product-tag');assert.ok($('.product-lab-link'));assert.equal($('.product-lab-link span').textContent,w.MOVA_LAB.label('openLabel'));
+  click('.product-lab-link');assert.ok(!$('#productDialog').open);assert.equal(d.activeElement,$('#anatomy'));
+ }
+ w.dispatchEvent(new w.CustomEvent('mova:variant',{detail:{id:'move',color:'orange'}}));assert.equal(latest.variant,'orange');
+ w.dispatchEvent(new w.CustomEvent('mova:variant',{detail:{id:'move',color:'invalid'}}));assert.equal(latest.variant,'orange');
+ d.documentElement.classList.add('paused-motion');await Promise.resolve();assert.ok(latest.reduced);assert.ok($('#shoeAuto').disabled);
+ d.documentElement.classList.remove('paused-motion');await Promise.resolve();assert.ok(!latest.reduced);assert.ok(!$('#shoeAuto').disabled);
+ assert.equal(w.MOVA_LAB.snapshot().loaded,true);
+ assert.ok(visible===true||visible===false);
+ options.onContextLost();assert.ok(w.MOVA_LAB.snapshot().failed);assert.ok(!w.MOVA_LAB.snapshot().loaded);assert.equal($('#shoeViewport').getAttribute('aria-busy'),'false');
+ const failure=await w.MOVA_LAB.load(()=>{throw new Error('GPU unavailable');});assert.equal(failure,null);assert.ok(w.MOVA_LAB.snapshot().failed);assert.ok(!w.MOVA_LAB.snapshot().loading);
+ let oldOptions,releaseOld,staleDisposed=0;
+ const pending=w.MOVA_LAB.load(o=>{oldOptions=o;return new Promise(resolve=>{releaseOld=resolve;});});
+ oldOptions.onContextLost();
+ await w.MOVA_LAB.load(async o=>{options=o;return adapter;});assert.ok(w.MOVA_LAB.snapshot().loaded);
+ releaseOld({...adapter,dispose(){staleDisposed++;}});await pending;
+ assert.equal(staleDisposed,1,'Late renderer is disposed after a successful retry');assert.ok(w.MOVA_LAB.snapshot().loaded,'Late load cannot replace the new renderer');
+ assert.deepEqual(errors,[]);console.log('PASS: lazy init, layers, skeleton, separation, colors, assembly, tap, zoom, rotation, 3 languages, product entry, reduced motion, GPU fallback, retry and late-load cleanup');dom.window.close();
+})().catch(e=>{console.error(e);dom.window.close();process.exitCode=1;});

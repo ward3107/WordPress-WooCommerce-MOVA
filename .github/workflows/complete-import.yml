@@ -1,0 +1,68 @@
+name: Complete MOVA repository import
+
+on:
+  push:
+    branches: [codex/complete-mova-import]
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    if: github.repository == 'ward3107/WordPress-WooCommerce-MOVA' && github.event.created
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Restore the original verified model
+        run: |
+          python3 - <<'PY'
+          import hashlib, urllib.request
+          from pathlib import Path
+          url = 'https://mova-motion-store.vasele66.chatgpt.site/assets/move-solid-v4.glb'
+          with urllib.request.urlopen(url, timeout=90) as response:
+              data = response.read(3_000_000)
+          expected = '007ee151d48d63b428882af0e7d4f764a85d7bdfa08273c3efd3f18d0e2eabc2'
+          assert hashlib.sha256(data).hexdigest() == expected, 'Original model checksum mismatch'
+          Path('dist/assets/move-solid-v4.glb').write_bytes(data)
+          print('Original model restored and verified.')
+          PY
+
+      - name: Build and verify the installable WooCommerce theme
+        run: |
+          python3 scripts/package-launch-kit.py
+          mkdir -p downloads
+          cp launch-build/mova-motion-woocommerce.zip downloads/mova-motion-woocommerce.zip
+          python3 - <<'PY'
+          import zipfile
+          with zipfile.ZipFile('downloads/mova-motion-woocommerce.zip') as z:
+              assert z.testzip() is None
+              assert 'mova-motion/style.css' in z.namelist()
+          print('Theme ZIP verified.')
+          PY
+
+      - name: Commit the completed assets to the import branch
+        env:
+          MOVA_GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/assets/move-solid-v4.glb downloads/mova-motion-woocommerce.zip
+          git commit -m 'Complete verified 3D model and WooCommerce install package'
+          askpass=$(mktemp)
+          trap 'rm -f "$askpass"' EXIT
+          cat > "$askpass" <<'SH'
+          #!/bin/sh
+          case "$1" in
+            *Username*) printf '%s\n' 'x-access-token' ;;
+            *Password*) printf '%s\n' "$MOVA_GITHUB_TOKEN" ;;
+          esac
+          SH
+          chmod 700 "$askpass"
+          GIT_ASKPASS="$askpass" GIT_TERMINAL_PROMPT=0 git push origin HEAD:refs/heads/codex/complete-mova-import
