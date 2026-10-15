@@ -3,13 +3,14 @@ name: Complete MOVA repository import
 on:
   push:
     branches: [codex/complete-mova-import]
+    paths: ['.import/**', '.github/workflows/complete-import.yml']
 
 permissions:
   contents: read
 
 jobs:
   import:
-    if: github.repository == 'ward3107/WordPress-WooCommerce-MOVA' && github.event.created
+    if: github.repository == 'ward3107/WordPress-WooCommerce-MOVA'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -22,11 +23,11 @@ jobs:
       - name: Restore the original verified model
         run: |
           python3 - <<'PY'
-          import hashlib, urllib.request
+          import hashlib, gzip
           from pathlib import Path
-          url = 'https://mova-motion-store.vasele66.chatgpt.site/assets/move-solid-v4.glb'
-          with urllib.request.urlopen(url, timeout=90) as response:
-              data = response.read(3_000_000)
+          parts = sorted(Path('.import').glob('model.gz.part-*'))
+          assert len(parts) == 5, 'Incomplete model transfer'
+          data = gzip.decompress(b''.join(part.read_bytes() for part in parts))
           expected = '007ee151d48d63b428882af0e7d4f764a85d7bdfa08273c3efd3f18d0e2eabc2'
           assert hashlib.sha256(data).hexdigest() == expected, 'Original model checksum mismatch'
           Path('dist/assets/move-solid-v4.glb').write_bytes(data)
