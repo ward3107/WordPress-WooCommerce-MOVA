@@ -1,0 +1,174 @@
+{
+  "generation": "OpenAI image generation; concept viewpoints completed from each original product reference. Not physical product scans.",
+  "background": "transparent",
+  "assets": [
+    {
+      "id": "move",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-c6da7769-a1f6-446c-8323-ccbabc138afe.png",
+      "asset": "dist/assets/spin/move.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\nReference image: the exact cream chunky sneaker with rich orange sweeping suede overlays, open cream technical knit, cream sculpted deeply grooved chunky sole, dark segmented outsole and charcoal tongue/heel tabs. One single RIGHT shoe in each cell. Keep the sculpted sole and orange panel shapes close to the reference; no simplified smooth generic sneaker. Do not add logos or create a pair.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 412904
+    },
+    {
+      "id": "focus",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-39c2ec5b-a0bc-47b4-ad7a-4f10b8e2f7de.png",
+      "asset": "dist/assets/spin/focus.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact over-ear headphones in the reference: ivory headband with ivory padded inner band, warm peach/rose metallic circular ear cups, cream thick soft cushions. One complete headset, keep its headband shape and spacing fixed while turning the entire headset. Show the backs of the ear cups, both cushion faces and headband from all sides. No logos, no invented wires.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 419986
+    },
+    {
+      "id": "carry",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-bfb68887-0e4c-4f6d-b757-349516119555.png",
+      "asset": "dist/assets/spin/carry.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact terracotta structured canvas backpack in the reference with rounded upper corners, top handle, front rectangular pocket, warm cream zipper pulls and two padded shoulder straps. One backpack. Rear views must show the two straps and back panel, side views its actual depth. Keep every pocket and seam consistent, no invented branding.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 404318
+    },
+    {
+      "id": "pace",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-fbc5cfed-8c2d-43dc-8053-77b53ce785dd.png",
+      "asset": "dist/assets/spin/pace.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact minimalist cream leather low court sneaker in the reference with green heel tab, cream laces, perforated toe and thin warm gum sole. One single right shoe per frame, with both inner and outer profiles, heel and toe genuinely shown. Keep the same proportions and material as the reference. No logos.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 326768
+    },
+    {
+      "id": "slide",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-b3bf858a-8544-4515-86a5-7bd463a31bcf.png",
+      "asset": "dist/assets/spin/slide.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact pair of terracotta molded slide sandals in the reference. Keep the same TWO sandals in a fixed, slightly offset parallel arrangement and rotate that rigid group together through the orbit. One pair in every cell, always two sandals. Show soles/heels from a fixed mild downward elevation without rolling the sandals. Preserve molded broad straps and sculpted footbeds.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 249164
+    },
+    {
+      "id": "pulse",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-8647f48c-9294-4349-8339-448a98dabfd5.png",
+      "asset": "dist/assets/spin/pulse.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact ivory and terracotta wireless earbud case in the reference. Show the OPEN case and the SAME TWO earbuds floating just above their charging wells, as a single fixed rigid display arrangement rotating together. The lid remains open at exactly the same angle throughout. Rear views reveal the hinge and back of case; side views show depth. Same two buds and same case in every cell, no added pieces.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 387752
+    },
+    {
+      "id": "echo",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-a84bb673-bc32-4873-b4db-4e8ae85acb07.png",
+      "asset": "dist/assets/spin/echo.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact deep forest-green cylindrical woven-fabric portable speaker in the reference, with its ivory carry loop and terracotta top button. One speaker upright in every cell. Rotate the carry-loop attachment and buttons with the speaker, show the rear and side seam conservatively. Preserve woven texture, round silhouette and exact green tone.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 437414
+    },
+    {
+      "id": "roam",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-4e9a0170-dd42-4b24-b397-a7bc833b90e1.png",
+      "asset": "dist/assets/spin/roam.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact forest green canvas duffel in the reference with cream webbing carry handles and cream detachable shoulder strap, terracotta zipper pulls and small terracotta handle patch. One closed duffel bag with the same straps in a fixed relaxed pose rotating with it. Show the back, side end panels and front while preserving seams, zip, silhouette and strap attachments. No text or logos.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 354796
+    },
+    {
+      "id": "orbit",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-79c632bf-3254-4526-8b2d-45547d17f4bc.png",
+      "asset": "dist/assets/spin/orbit.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact sand-beige crescent crossbody handbag in the reference with terracotta shoulder strap and warm gold rounded buckle/hardware. One bag, keep its strap in the same rigid relaxed arc while the entire product rotates. Show the unadorned back, narrow side/gusset and front with exact curved silhouette. Preserve woven/canvas material and seam detail. No invented branding.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 383242
+    },
+    {
+      "id": "form",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-f37b895a-c771-44d4-b0c0-743d3de7fb3c.png",
+      "asset": "dist/assets/spin/form.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact sage green oversized pullover hoodie in the reference with kangaroo pocket, thick hood, ribbed cuffs and ribbed hem. Invisible ghost mannequin only, NO human, NO hanger. Keep sleeves and hood in the same relaxed shape through the turntable. Rear views show the plain back and the back of the hood, not a duplicated front pocket. Preserve the thick fabric and color, no logos.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 278686
+    },
+    {
+      "id": "shell",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-1a3770a5-bff5-4f73-a853-2275ed1cd8fa.png",
+      "asset": "dist/assets/spin/shell.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\n\nReference product: The exact cream technical windbreaker in the reference with forest-green shoulder/chest panels and terracotta accents, standing collar, front zip and slanted pockets. Invisible ghost mannequin only, NO human, NO hanger. Same relaxed sleeve position throughout. Rear views show a structurally plausible plain back with color panels extending naturally; do not duplicate the front zipper on the back. Preserve the jacket cut, material and panel shapes. No text or logos.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 292658
+    },
+    {
+      "id": "loop",
+      "source": "/workspace/scratch/cff76fcfb706/generated_images/exec-9ccd80bc-a7f3-4ceb-906a-7e6306146243.png",
+      "asset": "dist/assets/spin/loop.webp",
+      "columns": 4,
+      "rows": 3,
+      "frames": 12,
+      "prompt": "Use case: product-mockup / precise-object-edit. Asset: ONE production-ready 360-degree turntable SPRITE ATLAS for a website, using the attached product image as the identity reference. Output a wide 4:3 canvas, ideally 3072 by 2304 pixels, with exactly FOUR columns and THREE rows of equal SQUARE cells, twelve views total. Every cell is a successive 30-degree rotation of the SAME product about its upright VERTICAL axis; read left-to-right, top-to-bottom: 0,30,60,90,120,150,180,210,240,270,300,330 degrees. Cell 1 matches the reference camera angle; complete a genuine orbit showing front, both sides and the back. Keep camera elevation and orthographic distance FIXED across every cell; the product is upright, never rolled, never mirrored, not a flat image rotated on the page. True viewpoint changes and occlusion. Preserve the exact product's colors, material texture, proportions, seams and distinctive details. Plausibly complete unseen surfaces conservatively. Whole product fits inside each cell with 12% clear padding; same ground baseline and scale in all cells. Transparent alpha background, NO grid lines, NO borders, NO numbers, NO labels, NO text, NO shadows outside the object. Photorealistic warm studio product lighting consistent across all views. This atlas is consumed directly as 12 frames; never let an object cross a cell boundary.\nReference image: the ivory bottle with terracotta SCREW CAP ATTACHED and sage green silicone carry loop. In every cell show ONE CLOSED BOTTLE ONLY. The extra detached cap in the reference is an auxiliary detail photo and must be omitted from this turntable asset. Keep this same bottle upright; the loop and its attachment turn with the bottle; its changing silhouette makes the back and side views distinct.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 213784
+    }
+  ]
+}
