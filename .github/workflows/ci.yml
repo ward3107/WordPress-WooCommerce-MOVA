@@ -1,0 +1,50 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  storefront:
+    name: Storefront contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check published resource paths
+        working-directory: dist
+        run: python ../.github/scripts/check-static.py index.html
+      - run: node verification/cart.test.cjs
+      - run: node verification/pricing.test.cjs
+      - run: node verification/components.test.cjs
+      - run: node verification/model.test.mjs
+      - name: Check storefront JavaScript syntax
+        run: find dist -maxdepth 1 -name '*.js' -print0 | xargs -0 -n1 node --check
+
+  theme:
+    name: WordPress PHP syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: none
+      - run: find integrations/wordpress/mova-motion -name '*.php' -print0 | xargs -0 -n1 php -l
