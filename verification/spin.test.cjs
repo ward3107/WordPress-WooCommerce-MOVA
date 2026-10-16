@@ -14,14 +14,14 @@ for(const el of [$('#card'),$('#view')]){
 }
 w.Image=class {set src(value){this.value=value;requests.push(this);}get naturalWidth(){return 1448;}get naturalHeight(){return 1086;}};
 for(const file of ['product-spin.js','product-zoom.js'])w.eval(fs.readFileSync(path.join(__dirname,'../dist',file),'utf8'));
+const style=d.createElement('style');style.textContent=fs.readFileSync(path.join(__dirname,'../dist/product-spin.css'),'utf8');d.head.append(style);
 const spec={src:'assets/spin/move.webp',columns:4,rows:3,frames:12};
 const fire=(el,type,id,x,y)=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId:id,pointerType:'touch',button:0,clientX:x,clientY:y});Object.defineProperty(e,'timeStamp',{value:clock});el.dispatchEvent(e);return e;};
 const key=(el,k)=>el.dispatchEvent(new w.KeyboardEvent('keydown',{key:k,bubbles:true,cancelable:true}));
 const near=(a,b,tolerance=1e-5)=>assert.ok(Math.abs(a-b)<tolerance,`${a} ≠ ${b}`);
 (async()=>{
  const api=w.MOVA_SPIN;
- for(const p of [-120.5,-.25,0,.25,11.75,12,132.25]){const b=api.blend(p,12);assert.ok(b.from>=0&&b.from<12);assert.equal(b.to,(b.from+1)%12);assert.ok(b.mix>=0&&b.mix<1);}
- const edge=api.blend(11.75,12);assert.equal(edge.from,11);assert.equal(edge.to,0);near(edge.mix,.75);
+ for(const p of [-120.5,-.25,0,.25,11.75,12,132.25]){const frame=api.wrap(p,12);assert.ok(frame>=0&&frame<12);assert.ok(Number.isInteger(frame));}
  // Closed-form friction produces the same distance at 60Hz and 120Hz.
  const simulate=dt=>{let v=.01,distance=0;for(let t=0;t<500;t+=dt){const n=api.coast(v,Math.min(dt,500-t));distance+=n.distance;v=n.velocity;}return distance;};near(simulate(1000/60),simulate(1000/120));
  let errors=0;const card=api.attach({viewport:$('#card'),image:$('#poster'),spec,fit:'card',drag:true,reduced:()=>reduce});
@@ -29,12 +29,17 @@ const near=(a,b,tolerance=1e-5)=>assert.ok(Math.abs(a-b)<tolerance,`${a} ≠ ${b
  let opened=0;$('#card').addEventListener('click',()=>opened++);$('#card').click();assert.equal(opened,1);
  fire($('#card'),'pointerdown',1,100,180);clock+=16;fire($('#card'),'pointermove',1,110,180);assert.equal(queue.size,1);
  clock+=4;fire($('#card'),'pointermove',1,112,180);assert.equal(queue.size,1,'Pointer events coalesce into one animation frame');step();
- assert.ok(card.snapshot().position>0&&card.snapshot().position<1,'A small drag visibly moves between source views');
- const tiles=[...d.querySelectorAll('#card .spin-tile')];assert.equal(tiles.length,2);assert.ok(Number(tiles[0].style.opacity)<1&&Number(tiles[1].style.opacity)>0);
+ assert.ok(card.snapshot().position>0&&card.snapshot().position<1,'A small drag retains fractional input precision');
+ const tiles=[...d.querySelectorAll('#card .spin-tile')];assert.equal(tiles.length,1,'Only one source view can be painted');
  const released=card.snapshot().position;fire($('#card'),'pointerup',1,112,180);$('#card').dispatchEvent(new w.MouseEvent('click',{bubbles:true,cancelable:true,detail:1}));assert.equal(opened,1,'Drag cannot open a product by accident');step();assert.ok(card.snapshot().position>released,'Release continues with momentum');settle();near(card.snapshot().position,Math.round(card.snapshot().position),.001);
  assert.equal(requests.length,1);
  requests[0].onload();await card.load();assert.ok($('#poster').classList.contains('spin-poster-hidden'));
- await card.goTo(11.75);near(Number(tiles[0].style.opacity),.25);near(Number(tiles[1].style.opacity),.75);assert.equal(tiles[0].dataset.frame,'11');assert.equal(tiles[1].dataset.frame,'0');
+ assert.equal(w.getComputedStyle($('#poster')).visibility,'hidden','The old photograph cannot show through the cutout');
+ for(const position of [.25,.49,.5,.75,5.5,11.49,11.5,11.75,-.25]){
+  await card.goTo(position);assert.equal(tiles[0].dataset.frame,String(api.wrap(position,12)));
+  const css=w.getComputedStyle(tiles[0]);assert.equal(css.opacity,'1','Fractional positions never fade the silhouette');assert.equal(css.mixBlendMode,'normal');assert.equal(css.transition,'none');
+ }
+ await card.goTo(11.75);assert.equal(tiles[0].dataset.frame,'0','The 360-degree seam uses one complete view');
  await card.goTo(11);await card.advance(1);settle();assert.equal(card.snapshot().frame,0);await card.advance(-1);settle();assert.equal(card.snapshot().frame,11);
  card.setEnabled(false);assert.ok($('#card .spin-surface').hidden);assert.ok(!$('#poster').classList.contains('spin-poster-hidden'));card.setEnabled(true);
  clock+=1000;fire($('#card'),'pointerdown',2,100,100);fire($('#card'),'pointermove',2,102,200);fire($('#card'),'pointercancel',2,102,200);settle();assert.equal(card.snapshot().frame,11,'Vertical scroll does not rotate');
@@ -53,5 +58,5 @@ const near=(a,b,tolerance=1e-5)=>assert.ok(Math.abs(a-b)<tolerance,`${a} ≠ ${b
  spin.destroy();zoom.destroy();card.destroy();assert.equal($('#view .spin-surface'),null);assert.equal(queue.size,0,'Disposal cancels all frame work');
  const retry=api.attach({viewport:$('#card'),image:$('#poster'),spec:{...spec,src:'assets/spin/retry.webp'},onError:()=>errors++});let p=retry.load();requests.at(-1).onerror();assert.equal(await p,false);assert.equal(errors,1);assert.ok(!$('#poster').classList.contains('spin-poster-hidden'));p=retry.load();requests.at(-1).onload();assert.equal(await p,true);retry.destroy();
  const late=api.attach({viewport:$('#card'),image:$('#poster'),spec:{...spec,src:'assets/spin/late.webp'}});p=late.load();late.destroy();requests.at(-1).onload();await p;assert.equal($('#card .spin-surface'),null);
- console.log('PASS: fractional drag, seam blending, coalesced frames, frame-rate-independent momentum, idle stop, pinch/pan cancellation, auto rotation, reduced motion, decode sharing/retry and disposal');
+ console.log('PASS: one opaque view across fractional positions and the 360° seam, hidden poster, coalesced frames, frame-rate-independent momentum, idle stop, pinch/pan cancellation, auto rotation, reduced motion, decode sharing/retry and disposal');
 })().finally(()=>dom.window.close());

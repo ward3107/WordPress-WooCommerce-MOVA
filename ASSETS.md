@@ -134,3 +134,10 @@ No new raster assets were generated. The opening, hero poster and all three clos
 ## Restored anatomy (V11)
 
 The existing V4 approximate GLB and its poster are referenced by the storefront again at the user’s request. The five-layer assembly supports whole, exploded and skeleton views, alongside the original-photo study. The existing photo/model comparison and approximation labels remain visible. No product imagery or model geometry was regenerated. The renderer and model are deferred until the anatomy section is approached or opened.
+
+
+## V12 — reference-led anatomy and clean turntables
+
+The new `move-anatomy-v5.glb` is authored 3D geometry, built by `scripts/build-reference-shoe.py` from hand-traced visible design boundaries in `data/move-reference-landmarks.json`. The original photograph is used as a shape reference, not projected over the mesh. The existing fabric swatch and derived normal map are reused from the archived V4 GLB in `data/move-source-v4.glb`. Hidden sides and the five internal layers remain conceptual rather than measured product specifications.
+
+The model contains 48,306 vertices and 91,262 triangles across 421 authored meshes, combined into 14 mesh batches by the existing viewer. Its matching poster is an offscreen render of the same geometry. The unchanged 12-frame catalog atlases now display one opaque frame per angle, without crossfading or moving cutout shadows.

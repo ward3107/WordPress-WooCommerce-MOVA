@@ -58,7 +58,7 @@
     const epoch=++loadEpoch;
     const request=(async()=>{
       try{
-        const create=factory||(await import('./shoe-viewer.js?v=6')).createShoeViewer;
+        const create=factory||(await import('./shoe-viewer.js?v=7')).createShoeViewer;
         const created=await create({mount:$('#shoeCanvasMount'),onTap:()=>act('tap'),onAutoStop:()=>{state.auto=false;syncUI();},onReset:()=>act('reset'),onZoom:value=>act('zoom',value),onZoomChange:value=>act('zoomValue',value),onContextLost:()=>{loadEpoch++;viewer?.dispose();viewer=null;loadPromise=null;failed=true;$('#shoeViewport').classList.remove('ready');$('#shoeViewport').classList.add('is-error');$('#shoeLoader').hidden=true;$('#shoeViewport').setAttribute('aria-busy','false');$('#shoeStatus').textContent=label('contextLost');$('#shoeStart').hidden=false;syncUI();}});
         if(epoch!==loadEpoch){created?.dispose();return null;}
         viewer=created;
