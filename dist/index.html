@@ -16,31 +16,33 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preload" href="assets/sneaker.webp" as="image" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=9">
-  <link rel="stylesheet" href="store.css?v=9">
-  <link rel="stylesheet" href="product-zoom.css?v=9">
-  <link rel="stylesheet" href="product-spin.css?v=9">
-  <link rel="stylesheet" href="cinematic-opening.css?v=9">
-  <link rel="stylesheet" href="flagship.css?v=9">
-  <script defer src="catalog.js?v=9"></script>
-  <script defer src="store-core.js?v=9"></script>
-  <script defer src="store-copy.js?v=9"></script>
-  <script defer src="product-zoom.js?v=9"></script>
-  <script defer src="product-spin.js?v=9"></script>
-  <script defer src="store-ui.js?v=9"></script>
-  <script defer src="cinematic-opening.js?v=9"></script>
-  <script defer src="flagship.js?v=9"></script>
-  <script defer src="app.js?v=9"></script>
+  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="store.css?v=10">
+  <link rel="stylesheet" href="product-zoom.css?v=10">
+  <link rel="stylesheet" href="product-spin.css?v=10">
+  <link rel="stylesheet" href="cinematic-opening.css?v=10">
+  <link rel="stylesheet" href="flagship.css?v=10">
+  <script defer src="catalog.js?v=10"></script>
+  <script defer src="store-core.js?v=10"></script>
+  <script defer src="store-copy.js?v=10"></script>
+  <script defer src="product-zoom.js?v=10"></script>
+  <script defer src="product-spin.js?v=10"></script>
+  <script defer src="store-ui.js?v=10"></script>
+  <script defer src="cinematic-opening.js?v=10"></script>
+  <script defer src="flagship.js?v=10"></script>
+  <link rel="stylesheet" href="brand-studio.css?v=10">
+  <script defer src="brand-studio.js?v=10"></script>
+  <script defer src="app.js?v=10"></script>
 </head>
 <body data-experience="flagship">
   <a href="#collection" class="skip-link" data-i18n="skip">דילוג לקולקציה</a>
   <div class="announcement"><span class="status-dot"></span><span data-i18n="announcement">חנות קונספט. סטייל בתנועה.</span><span class="announcement-edition" dir="ltr">THE MOVA EDIT / 01</span></div>
   <header class="site-header" id="siteHeader">
-    <a class="logo" href="#" aria-label="MOVA"><span dir="ltr">mova<span class="logo-dot">®</span></span></a>
+    <a class="logo" href="#" aria-label="MOVA" data-brand-link><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></a>
     <nav class="desktop-nav" aria-label="ניווט ראשי" data-i18n-aria="navigation">
       <a href="#collection" data-i18n="collection">הקולקציה</a>
       <a href="#details" data-i18n="details">מקרוב</a>
-      <a href="#editorial" data-i18n="journal">הסיפור</a>
+      <a href="#editorial" data-i18n="journal">הסיפור</a><a href="#brandStudio" data-i18n="brandNav">המותג שלך כאן</a>
     </nav>
     <div class="header-actions">
       <label class="language-label"><span class="sr-only" data-i18n="language">שפה</span><select id="language" aria-label="שפה"><option value="he">HE</option><option value="en">EN</option><option value="ar">AR</option></select></label>
@@ -52,9 +54,9 @@
   </header>
 
   <main>
-    <section class="hero flagship-hero" aria-labelledby="heroTitle">
+    <section id="storeTop" class="hero flagship-hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
-        <div class="eyebrow" dir="ltr"><span class="tiny-cross" aria-hidden="true">✳</span> MOVA STUDIO / OBJECT 01</div>
+        <div class="eyebrow" dir="ltr"><span class="tiny-cross" aria-hidden="true">✳</span> <bdi data-store-brand="MOVA">MOVA</bdi> STUDIO / OBJECT 01</div>
         <h1 id="heroTitle"><span data-i18n="flagshipTitle1">נועד לזוז.</span><span class="hero-line-accent" data-i18n="flagshipTitle2">נשאר בזיכרון.</span></h1>
         <p class="hero-description" data-i18n="flagshipDescription">צורה עם אופי. טקסטורה שמזמינה להתקרב. הכירו את MOVE 01, מכל זווית.</p>
         <div class="hero-ctas"><button class="button button-dark" data-open-product="move"><span data-i18n="flagshipShop">לגלות את MOVE 01</span><span class="button-arrow" aria-hidden="true">↗</span></button><a class="text-button" href="#collection"><span data-i18n="flagshipCollection">לכל הקולקציה</span><span aria-hidden="true">↓</span></a></div>
@@ -82,7 +84,7 @@
       <div class="flagship-bottom"><span data-i18n="flagshipBottom">עיצוב שמתחיל בפרט קטן.</span><a href="#details"><span data-i18n="flagshipScroll">לגלות מקרוב</span><span aria-hidden="true">↓</span></a><span dir="ltr">OBJECTS IN MOTION®</span></div>
     </section>
 
-    <div class="moving-strip" aria-hidden="true"><div class="strip-track"><span>LESS ORDINARY</span><i>✳</i><span>MORE MOVA</span><i>✳</i><span>LESS ORDINARY</span><i>✳</i><span>MORE MOVA</span><i>✳</i><span>LESS ORDINARY</span><i>✳</i><span>MORE MOVA</span><i>✳</i></div></div>
+    <div class="moving-strip" aria-hidden="true"><div class="strip-track"><span>LESS ORDINARY</span><i>✳</i><span>MORE <bdi data-store-brand="MOVA">MOVA</bdi></span><i>✳</i><span>LESS ORDINARY</span><i>✳</i><span>MORE <bdi data-store-brand="MOVA">MOVA</bdi></span><i>✳</i><span>LESS ORDINARY</span><i>✳</i><span>MORE <bdi data-store-brand="MOVA">MOVA</bdi></span><i>✳</i></div></div>
 
     <section class="collection section-shell" id="collection" aria-labelledby="collectionTitle">
       <div class="section-top"><div><p class="eyebrow" dir="ltr">THE EVERYDAY EDIT</p><h2 id="collectionTitle" data-i18n="collectionTitle">היום שלך. הבחירה שלך.</h2></div><p class="section-aside" data-i18n="collectionAside">לצאת, להתנתק, לקחת איתך.<br>הפריטים שילכו בקצב שלך.</p></div>
@@ -122,12 +124,49 @@
       <div class="editorial-copy"><p class="eyebrow" dir="ltr">THE MOVA WAY</p><h2 id="editorialTitle"><span data-i18n="editorialLine1">פחות רעש.</span><span data-i18n="editorialLine2">יותר נוכחות.</span></h2><p data-i18n="editorialDescription">אנחנו אוהבים דברים פשוטים עם טוויסט. צורה מעניינת, צבע מדויק, פרט קטן שמרגיש אחרת. כאלה שלא צריכים לצעוק כדי להישאר בזיכרון.</p><a class="button button-dark" href="#collection"><span data-i18n="findYourStyle">למצוא את הסטייל שלך</span><span class="button-arrow" aria-hidden="true">↗</span></a><span class="editorial-signoff" dir="ltr">Made for your everyday. Designed to stand out.</span></div>
     </section>
 
-    <section class="mood-section section-shell" aria-labelledby="moodTitle"><div class="mood-heading"><p class="eyebrow" dir="ltr">PICK YOUR PACE</p><h2 id="moodTitle" data-i18n="moodTitle">איזה יום בא לך?</h2><p data-i18n="moodIntro">שלושה מצבי רוח. אותה אהבה לעיצוב.</p></div><div class="mood-switcher" role="group" aria-label="בחירת מצב רוח" data-i18n-aria="moodLabel"><button class="mood-button active" data-mood="move" aria-pressed="true"><span dir="ltr">MOVE</span><small data-i18n="moveMood">לצאת לתנועה</small></button><button class="mood-button" data-mood="focus" aria-pressed="false"><span dir="ltr">FOCUS</span><small data-i18n="focusMood">למצוא את השקט</small></button><button class="mood-button" data-mood="carry" aria-pressed="false"><span dir="ltr">GO</span><small data-i18n="goMood">לקחת את היום איתך</small></button></div><div class="mood-stage" id="moodStage"><div class="mood-stage-copy"><p class="eyebrow" dir="ltr" id="moodCategory">IN YOUR ELEMENT</p><h3 id="moodHeadline"></h3><button class="button button-light" id="moodExplore"><span data-i18n="exploreProduct">לגלות את הפריט</span><span class="button-arrow" aria-hidden="true">↗</span></button></div><span class="mood-backword" aria-hidden="true" id="moodBackword" dir="ltr">MOVE</span><img id="moodImage" src="assets/sneaker.webp" width="1024" height="1024" loading="lazy" alt="נעל MOVE 01"><span class="mood-stage-index" id="moodStageIndex" dir="ltr">01 / 03</span></div></section>
+    <section class="mood-section object-edits section-shell" aria-labelledby="moodTitle">
+      <div class="mood-heading"><p class="eyebrow" dir="ltr">THREE OBJECTS / THREE WORLDS</p><h2 id="moodTitle" data-i18n="moodTitle">איזה יום בא לך?</h2><p data-i18n="moodIntro">שלושה מצבי רוח. אותה אהבה לעיצוב.</p></div>
+      <div class="mood-switcher" role="group" aria-label="בחירת מצב רוח" data-i18n-aria="moodLabel">
+        <button class="mood-button active" data-mood="move" aria-pressed="true" aria-controls="moodStage"><span class="object-tab-index" aria-hidden="true">01</span><span dir="ltr">MOVE</span><small data-i18n="moveMood">לצאת לתנועה</small><span class="object-tab-arrow" aria-hidden="true">↗</span></button>
+        <button class="mood-button" data-mood="focus" aria-pressed="false" aria-controls="moodStage"><span class="object-tab-index" aria-hidden="true">02</span><span dir="ltr">FOCUS</span><small data-i18n="focusMood">למצוא את השקט</small><span class="object-tab-arrow" aria-hidden="true">↗</span></button>
+        <button class="mood-button" data-mood="carry" aria-pressed="false" aria-controls="moodStage"><span class="object-tab-index" aria-hidden="true">03</span><span dir="ltr">CARRY</span><small data-i18n="goMood">לקחת את היום איתך</small><span class="object-tab-arrow" aria-hidden="true">↗</span></button>
+      </div>
+      <div class="mood-stage" id="moodStage">
+        <div class="mood-stage-copy"><p class="eyebrow" dir="ltr" id="moodCategory">IN YOUR ELEMENT</p><h3 id="moodHeadline"></h3><p class="object-material" id="moodMaterial"></p><button class="button button-light" id="moodExplore"><span data-i18n="objectExplore">לגלות ב־360°</span><span class="button-arrow" aria-hidden="true">↗</span></button><div class="object-caption"><span id="moodCode" dir="ltr"></span><span id="moodPrice" dir="ltr"></span></div></div>
+        <span class="mood-backword" aria-hidden="true" id="moodBackword" dir="ltr">MOVE</span><img id="moodImage" src="assets/sneaker.webp" width="1200" height="1200" loading="lazy" alt="נעל MOVE 01"><span class="mood-stage-index" id="moodStageIndex" dir="ltr">01 / 03</span>
+      </div>
+      <p class="sr-only" id="moodStatus" role="status" aria-live="polite"></p>
+    </section>
 
-    <section class="invitation section-shell" aria-labelledby="invitationTitle"><div><p class="eyebrow" dir="ltr">YOUR NEXT STORE STARTS HERE</p><h2 id="invitationTitle" data-i18n="invitationTitle">לדמיין את המותג שלך כאן.</h2><p data-i18n="invitationText">אותה רמת עיצוב. המוצרים שלך, הצבעים שלך, הסיפור שלך.</p></div><a class="button button-dark" id="contactLink" href="https://wa.me/972544513141?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20MOVA%20%D7%95%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%97%D7%A0%D7%95%D7%AA%20%D7%9B%D7%96%D7%95." target="_blank" rel="noopener noreferrer"><span data-i18n="wantStore">אני רוצה חנות כזו</span><span class="button-arrow" aria-hidden="true">↗</span></a></section>
+    <section class="brand-studio section-shell" id="brandStudio" aria-labelledby="invitationTitle">
+      <div class="brand-studio-heading"><p class="eyebrow" dir="ltr">YOUR BRAND. YOUR NEXT CHAPTER.</p><h2 id="invitationTitle" data-i18n="invitationTitle">לדמיין את המותג שלך כאן.</h2><p data-i18n="brandIntro">שם אחד. צבע אחד. פתאום זו החנות שלך.</p></div>
+      <div class="brand-studio-layout">
+        <div class="brand-preview" id="brandPreview" data-brand-theme="terracotta" role="group" aria-label="תצוגת המיתוג שלך" data-i18n-aria="brandPreviewLabel">
+          <div class="brand-preview-header"><bdi id="brandPreviewName">mova</bdi><span aria-hidden="true">☰</span></div>
+          <div class="brand-preview-scene"><span class="brand-preview-orbit" aria-hidden="true"></span><p data-i18n="brandPreviewHeadline">הסיפור שלך.<br>החנות שלך.</p><img src="assets/sneaker.webp" width="1200" height="1200" loading="lazy" alt="נעל קונספט בצבע קרם עם פאנל כתום" data-i18n-alt="shoeAlt"><span class="brand-preview-arrow" aria-hidden="true">↗</span></div>
+          <div class="brand-preview-footer"><span class="status-dot" aria-hidden="true"></span><span data-i18n="brandLivePreview">תצוגה אישית בזמן אמת</span><span dir="ltr">01 / 12</span></div>
+        </div>
+        <div class="brand-controls">
+          <form id="brandStudioForm">
+            <label class="brand-field-label" for="brandName"><span dir="ltr">01</span><span data-i18n="brandNameLabel">איך קוראים למותג שלך?</span></label>
+            <input id="brandName" name="brandName" type="text" dir="auto" maxlength="32" autocomplete="organization" placeholder="שם העסק שלך" data-i18n-placeholder="brandNamePlaceholder" aria-describedby="brandHint">
+            <fieldset class="brand-palettes"><legend><span dir="ltr">02</span><span data-i18n="brandPaletteLabel">לבחור את האווירה</span></legend>
+              <label class="brand-palette"><input type="radio" name="brandTheme" value="terracotta" checked><span class="brand-palette-colors palette-terracotta" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="brandTheme_terracotta">טרקוטה</span></label>
+              <label class="brand-palette"><input type="radio" name="brandTheme" value="forest"><span class="brand-palette-colors palette-forest" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="brandTheme_forest">יער</span></label>
+              <label class="brand-palette"><input type="radio" name="brandTheme" value="cobalt"><span class="brand-palette-colors palette-cobalt" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="brandTheme_cobalt">קובלט</span></label>
+            </fieldset>
+            <div class="brand-form-actions"><button type="submit" class="button button-dark"><span data-i18n="brandApply">להחיל על החנות</span><span class="button-arrow" aria-hidden="true">↗</span></button><button type="button" class="text-button" id="brandReset" data-i18n="brandReset" disabled>איפוס</button></div>
+            <p class="brand-hint" id="brandHint" data-i18n="brandHint">זו תצוגה אישית בדפדפן שלך. אפשר לאפס בכל רגע.</p>
+            <p class="brand-status" id="brandStatus" role="status" aria-live="polite"></p>
+            <a id="brandViewStore" class="text-button underlined" href="#storeTop" hidden><span data-i18n="brandViewStore">לראות את החנות שלי</span><span aria-hidden="true">↑</span></a>
+          </form>
+          <div class="brand-contact"><p data-i18n="brandNext">נראה כמו התחלה של משהו טוב?</p><a class="text-button" id="contactLink" href="https://wa.me/972544513141" target="_blank" rel="noopener noreferrer"><span data-i18n="brandContact">בואו נדבר על החנות שלך</span><span aria-hidden="true">↗</span></a></div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer section-shell"><div class="footer-main"><a class="logo footer-logo" href="#" dir="ltr">mova<span class="logo-dot">®</span></a><span dir="ltr">OBJECTS IN MOTION.</span><div class="share-actions"><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button><button class="text-button" id="shareButton" data-i18n="share">שיתוף החנות ↗</button><a id="whatsappShare" href="https://wa.me/" target="_blank" rel="noopener noreferrer">WhatsApp</a><a id="facebookShare" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a></div></div><div class="footer-bottom"><span data-i18n="demoDisclaimer">MOVA הוא מותג קונספט. ניתן להשלים הזמנת הדגמה; אין מכירה או סליקה.</span><button id="motionToggle" class="motion-toggle" aria-pressed="false"><span class="motion-toggle-dot" aria-hidden="true"></span><span id="motionToggleLabel">הפחתת תנועה</span></button></div></footer>
+  <footer class="site-footer section-shell"><div class="footer-main"><a class="logo footer-logo" href="#" data-brand-link><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></a><span dir="ltr">OBJECTS IN MOTION.</span><div class="share-actions"><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button><button class="text-button" id="shareButton" data-i18n="share">שיתוף החנות ↗</button><a id="whatsappShare" href="https://wa.me/" target="_blank" rel="noopener noreferrer">WhatsApp</a><a id="facebookShare" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a></div></div><div class="footer-bottom"><span data-i18n="demoDisclaimer">MOVA הוא מותג קונספט. ניתן להשלים הזמנת הדגמה; אין מכירה או סליקה.</span><button id="motionToggle" class="motion-toggle" aria-pressed="false"><span class="motion-toggle-dot" aria-hidden="true"></span><span id="motionToggleLabel">הפחתת תנועה</span></button></div></footer>
 
   <dialog id="productDialog" class="product-dialog" aria-labelledby="productDialogTitle"><button class="icon-button dialog-close" data-close-dialog="productDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="productDialogBody"></div></dialog>
   <dialog id="cartDialog" class="cart-dialog" aria-labelledby="cartTitle"><div class="drawer-header"><h2 id="cartTitle" data-i18n="yourBag">התיק שלך</h2><button class="icon-button" data-close-dialog="cartDialog" aria-label="סגירה" data-i18n-aria="close">×</button></div><div id="cartBody"></div></dialog>
@@ -135,7 +174,7 @@
   <dialog id="compareDialog" class="shop-dialog compare-dialog" aria-labelledby="compareTitle"><button class="icon-button dialog-close" data-close-dialog="compareDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="compareBody"></div></dialog>
   <dialog id="sizeGuideDialog" class="shop-dialog size-guide-dialog" aria-labelledby="sizeGuideTitle"><button class="icon-button dialog-close" data-close-dialog="sizeGuideDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="sizeGuideBody"></div></dialog>
   <dialog id="orderHistoryDialog" class="shop-dialog history-dialog" aria-labelledby="orderHistoryTitle"><button class="icon-button dialog-close" data-close-dialog="orderHistoryDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="orderHistoryBody"></div></dialog>
-  <dialog id="menuDialog" class="menu-dialog" aria-label="תפריט" data-i18n-aria="menu"><div class="drawer-header"><span class="logo" dir="ltr">mova®</span><button class="icon-button" data-close-dialog="menuDialog" aria-label="סגירה" data-i18n-aria="close">×</button></div><nav><a href="#collection" data-i18n="collection">הקולקציה</a><a href="#details" data-i18n="details">מקרוב</a><a href="#editorial" data-i18n="journal">הסיפור</a><button class="text-button" id="menuFavorites" data-i18n="favorites">המועדפים שלי</button><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button></nav></dialog>
+  <dialog id="menuDialog" class="menu-dialog" aria-label="תפריט" data-i18n-aria="menu"><div class="drawer-header"><span class="logo"><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></span><button class="icon-button" data-close-dialog="menuDialog" aria-label="סגירה" data-i18n-aria="close">×</button></div><nav><a href="#collection" data-i18n="collection">הקולקציה</a><a href="#details" data-i18n="details">מקרוב</a><a href="#editorial" data-i18n="journal">הסיפור</a><a href="#brandStudio" data-i18n="brandNav">המותג שלך כאן</a><button class="text-button" id="menuFavorites" data-i18n="favorites">המועדפים שלי</button><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button></nav></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <noscript><p class="noscript">להתנסות בבחירת פריטים ובסל ההדגמה, יש לאפשר JavaScript בדפדפן.</p></noscript>
 

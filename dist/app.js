@@ -55,6 +55,7 @@
     if($('#sizeGuideDialog').open)shop.renderSizeGuide();
     safeWrite('mova-language',state.lang);
     window.MOVA_FLAGSHIP?.translate();
+    window.MOVA_BRAND?.translate();
   }
 
   function renderProducts(){return shop.renderProducts();}
@@ -121,11 +122,11 @@
     $$('.detail-hotspot').forEach(b=>{b.hidden=state.detail!=='whole';});
   }
   function setMood(id,instant=false){
-    state.mood=core.product(id)?id:'move';
+    state.mood=['move','focus','carry'].includes(id)?id:'move';
     const p=core.product(state.mood),keys={move:['moodMoveHeadline','moodMoveCategory','MOVE','01'],focus:['moodFocusHeadline','moodFocusCategory','FOCUS','02'],carry:['moodGoHeadline','moodGoCategory','GO','03']}[state.mood];
     const img=$('#moodImage');
     clearTimeout(moodTimer);
-    const update=()=>{img.src=p.image;img.alt=localeText(p.title);$('#moodStage').dataset.mood=state.mood;$('#moodHeadline').textContent=t(keys[0]);$('#moodCategory').textContent=t(keys[1]);$('#moodBackword').textContent=keys[2];$('#moodStageIndex').textContent=keys[3]+' / 03';img.classList.remove('switching');};
+    const update=()=>{img.src=p.image;img.alt=localeText(p.title);$('#moodStage').dataset.mood=state.mood;$('#moodHeadline').textContent=t(keys[0]);$('#moodCategory').textContent=t(keys[1]);$('#moodBackword').textContent=keys[2];$('#moodStageIndex').textContent=keys[3]+' / 03';img.classList.remove('switching');if($('#moodMaterial')){$('#moodMaterial').textContent=localeText(p.material);$('#moodCode').textContent=p.code;$('#moodPrice').textContent=money(p.price);$('#moodStatus').textContent=p.code+' — '+t(keys[0]);}};
     if(instant||motionIsReduced())update();else{img.classList.add('switching');moodTimer=setTimeout(update,150);}
     $$('.mood-button').forEach(b=>{const active=b.dataset.mood===state.mood;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
   }
@@ -207,9 +208,10 @@
   });
   applyLanguage();
   window.MOVA_FLAGSHIP?.init({t,reduced:motionIsReduced});
+  window.MOVA_BRAND?.init({t,phone:brand.contactInternational});
   window.MOVA_INTRO?.init({t,reduced:motionIsReduced});
   if('IntersectionObserver' in window){
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.1});
-    $$('.section-top,.details-heading,.detail-description,.editorial-photo,.editorial-copy,.mood-heading,.invitation').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
+    $$('.section-top,.details-heading,.detail-description,.editorial-photo,.editorial-copy,.mood-heading,.brand-studio-heading').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
   }
 })();

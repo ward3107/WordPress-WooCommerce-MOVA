@@ -97,12 +97,12 @@ body[data-experience="flagship"] .cinematic-opening.is-leaving .cinema-progress 
 }
 
 /* A spacious product sheet stays connected to the storefront's visual language. */
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] { width: min(1240px,96vw); border-radius: 22px; }
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .product-dialog-content { padding: clamp(26px,4vw,58px); }
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] #productDialogTitle { font-size: clamp(42px,5vw,64px); letter-spacing: -.045em; }
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .product-dialog-visual { min-height: 480px; }
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .size-option { min-height: 44px; }
-body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .purchase-row { gap: 12px; }
+body[data-experience="flagship"] #productDialog[data-flagship-product] { width: min(1240px,96vw); border-radius: 22px; }
+body[data-experience="flagship"] #productDialog[data-flagship-product] .product-dialog-content { padding: clamp(26px,4vw,58px); }
+body[data-experience="flagship"] #productDialog[data-flagship-product] #productDialogTitle { font-size: clamp(42px,5vw,64px); letter-spacing: -.045em; }
+body[data-experience="flagship"] #productDialog[data-flagship-product] .product-dialog-visual { min-height: 480px; }
+body[data-experience="flagship"] #productDialog[data-flagship-product] .size-option { min-height: 44px; }
+body[data-experience="flagship"] #productDialog[data-flagship-product] .purchase-row { gap: 12px; }
 
 @media(min-width:1600px) { .flagship-stage { min-height: 650px; } }
 @media(max-width:1020px) and (min-width:761px) {
@@ -152,9 +152,9 @@ body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .p
   .flagship-study-caption { font-size: 9px; inset-inline-start: 18px; }
   body[data-experience="flagship"] .cinema-product-main { width: 105vw; top: 46%; }
   body[data-experience="flagship"] .cinema-caption { bottom: 17%; }
-  body[data-experience="flagship"] #productDialog[data-flagship-product="move"] { width: 100%; max-height: 100dvh; border-radius: 0; }
-  body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .product-dialog-visual { min-height: 0; }
-  body[data-experience="flagship"] #productDialog[data-flagship-product="move"] .product-dialog-content { padding: 26px 22px; }
+  body[data-experience="flagship"] #productDialog[data-flagship-product] { width: 100%; max-height: 100dvh; border-radius: 0; }
+  body[data-experience="flagship"] #productDialog[data-flagship-product] .product-dialog-visual { min-height: 0; }
+  body[data-experience="flagship"] #productDialog[data-flagship-product] .product-dialog-content { padding: 26px 22px; }
 }
 @media(max-width:360px) { .flagship-readouts { gap: 3px; font-size: 9px; } .flagship-stage-controls { inset-inline: 12px; } }
 .paused-motion .flagship-study img,.paused-motion .flagship-detail-tabs * { transition: none!important; }
