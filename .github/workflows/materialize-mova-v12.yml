@@ -1,0 +1,39 @@
+name: Materialize verified MOVA model
+on:
+  push:
+    branches: [codex/refine-move-anatomy]
+    paths:
+      - '.github/mova-asset-transfer/**'
+      - '.github/workflows/materialize-mova-v12.yml'
+permissions:
+  contents: write
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: codex/refine-move-anatomy
+      - name: Restore the verified binary
+        run: |
+          python3 - <<'PY'
+          import base64, gzip, hashlib
+          from pathlib import Path
+          parts=sorted(Path('.github/mova-asset-transfer').glob('model.*.b64'))
+          assert len(parts)==5
+          raw=gzip.decompress(base64.b64decode(''.join(p.read_text() for p in parts),validate=True))
+          assert len(raw)==2615268
+          assert hashlib.sha256(raw).hexdigest()=='a335e75725167d7954cc783260ba2756896c311e52682020343308711b1bc01c'
+          Path('dist/assets/move-anatomy-v5.glb').write_bytes(raw)
+          PY
+      - name: Verify the actual model
+        run: node verification/model.test.mjs
+      - name: Save the asset on this review branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/assets/move-anatomy-v5.glb
+          git diff --cached --quiet && exit 0
+          git commit -m "Add verified reference-led MOVE model"
+          git push origin HEAD:codex/refine-move-anatomy
