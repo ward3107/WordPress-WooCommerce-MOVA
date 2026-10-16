@@ -32,7 +32,7 @@ The theme uses native WooCommerce products, variations, stock, cart and checkout
 - Editorial MOVE, FOCUS and CARRY chapters, with a consistent product sheet for every catalog item.
 - Separate WooCommerce trial theme with native commerce and media-library turntable configuration.
 
-The 360° sequences contain twelve AI-generated concept views per product, with frame blending. They are not product scans or continuous 3D models. The MOVE 01 flagship study uses the original product image for its hero, opening and close-ups. The older approximate 3D lab remains archived in the source and is not loaded by the storefront. Zoom magnifies available image detail.
+The 360° sequences contain twelve AI-generated concept views per product, with frame blending. They are not product scans or continuous 3D models. The MOVE 01 flagship study uses the original product image for its hero, opening and close-ups. The approximate 3D anatomy lab is available alongside the photo study, with whole, exploded and skeleton modes. Its renderer and five-layer model load only when the lab is reached or requested. Zoom magnifies available image detail.
 
 ## Repository layout
 
@@ -70,8 +70,10 @@ The storefront includes a measured opening-to-hero transition, a large gesture-c
 
 The storefront keeps the existing twelve source views per product. It does not fabricate extra angles or claim a scan-quality 3D model. A denser, consistently photographed or rendered turntable is the next asset-production step. The separately distributed WooCommerce ZIP is still the previously validated trial package.
 
-Run `verification/flagship.test.cjs` with `MOVA_DOM_MODULE` set to jsdom for real-page startup, handoff cleanup, gesture, language and purchase checks. `verification/lab.test.cjs` exercises the archived V8 lab fixture. Physical-device touch performance and browser visual review remain required before design approval; automated DOM checks do not measure those.
+Run `verification/flagship.test.cjs` with `MOVA_DOM_MODULE` set to jsdom for real-page startup, handoff cleanup, gesture, language and purchase checks. `verification/lab.test.cjs` exercises the live anatomy section, including the hero and product entry points, all three modes, layer selection and loading recovery. Physical-device touch performance and browser visual review remain required before design approval; automated DOM checks do not measure those.
 
 The “Your brand here” studio previews a business name and a Terracotta, Forest or Cobalt palette. Applying it updates storefront branding locally; reset restores MOVA. Names are bounded plain text, saved preferences are validated, and the preview works when storage is blocked. The WhatsApp link includes the currently previewed name and palette; it does not send a message automatically. This customization belongs to the static portfolio; the separately downloadable WooCommerce trial has not been rebuilt with it.
 
 Run `verification/brand-studio.test.cjs` with `MOVA_DOM_MODULE` set to jsdom for branding, palette contrast, persistence, language changes, catalog chapter selection and cart-preservation checks. Full-page startup, existing commerce and gesture checks also pass. V10 adds no new image assets; initial local resources are approximately 543 KB, with turntables still deferred until interaction. These are source-size and DOM checks, not measured mobile loading time, browser screenshots or physical-device performance.
+
+The shoe anatomy experience is restored at `#anatomy`, with five selectable layers, adjustable separation, tap to assemble/disassemble, rotation, two-finger zoom and a photo/model comparison. The V10 catalog and personal brand studio remain available. Model geometry/reassembly and actual OrbitControls gesture logic are covered by `verification/model.test.mjs` and `verification/3d-gestures.test.mjs`; these CPU/DOM checks do not replace visual WebGL testing on a real device.

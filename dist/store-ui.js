@@ -46,9 +46,9 @@ window.MOVA_SHOP=({state,core,$,$$,t,esc,money,localeText,toast,safeRead,safeWri
  }
  const miniature=p=>`<button class="mini-product" data-open-product="${p.id}"><span style="background:${p.surface}"><img src="${p.image}" width="240" height="240" loading="lazy" alt="${esc(localeText(p.title))}"></span><b dir="ltr">${p.code}</b><small>${esc(money(p.price))}</small></button>`;
  function renderRecent(){const list=state.recent.map(core.product).filter(Boolean).slice(0,4);$('#recentlyViewed').hidden=!list.length;$('#recentGrid').innerHTML=list.map(miniature).join('');}
- function openProduct(id){
+ function openProduct(id,colorId){
   const p=core.product(id);if(!p)return;
-  let color=colorFor(p,state.cardColors[id]).id,size=p.defaultSize;
+  let color=colorFor(p,colorId??state.cardColors[id]).id,size=p.defaultSize;
   if(!core.stock({id,color,size}))size=p.sizes.find(s=>core.stock({id,color,size:s}))??p.defaultSize;
   const flagship=id==='move'?window.MOVA_FLAGSHIP?.snapshot():null;
   const spinFrame=flagship?.view==='spin'?flagship.spin?.position:spinFrames.get(id);

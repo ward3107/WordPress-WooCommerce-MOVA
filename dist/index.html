@@ -16,23 +16,25 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preload" href="assets/sneaker.webp" as="image" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=10">
-  <link rel="stylesheet" href="store.css?v=10">
-  <link rel="stylesheet" href="product-zoom.css?v=10">
-  <link rel="stylesheet" href="product-spin.css?v=10">
-  <link rel="stylesheet" href="cinematic-opening.css?v=10">
-  <link rel="stylesheet" href="flagship.css?v=10">
-  <script defer src="catalog.js?v=10"></script>
-  <script defer src="store-core.js?v=10"></script>
-  <script defer src="store-copy.js?v=10"></script>
-  <script defer src="product-zoom.js?v=10"></script>
-  <script defer src="product-spin.js?v=10"></script>
-  <script defer src="store-ui.js?v=10"></script>
-  <script defer src="cinematic-opening.js?v=10"></script>
-  <script defer src="flagship.js?v=10"></script>
-  <link rel="stylesheet" href="brand-studio.css?v=10">
-  <script defer src="brand-studio.js?v=10"></script>
-  <script defer src="app.js?v=10"></script>
+  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="store.css?v=11">
+  <link rel="stylesheet" href="product-zoom.css?v=11">
+  <link rel="stylesheet" href="product-spin.css?v=11">
+  <link rel="stylesheet" href="cinematic-opening.css?v=11">
+  <link rel="stylesheet" href="shoe-lab.css?v=11">
+  <link rel="stylesheet" href="flagship.css?v=11">
+  <script defer src="catalog.js?v=11"></script>
+  <script defer src="store-core.js?v=11"></script>
+  <script defer src="store-copy.js?v=11"></script>
+  <script defer src="product-zoom.js?v=11"></script>
+  <script defer src="product-spin.js?v=11"></script>
+  <script defer src="store-ui.js?v=11"></script>
+  <script defer src="cinematic-opening.js?v=11"></script>
+  <script defer src="flagship.js?v=11"></script>
+  <link rel="stylesheet" href="brand-studio.css?v=11">
+  <script defer src="brand-studio.js?v=11"></script>
+  <script defer src="app.js?v=11"></script>
+  <script defer src="shoe-lab.js?v=11"></script>
 </head>
 <body data-experience="flagship">
   <a href="#collection" class="skip-link" data-i18n="skip">דילוג לקולקציה</a>
@@ -41,7 +43,7 @@
     <a class="logo" href="#" aria-label="MOVA" data-brand-link><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></a>
     <nav class="desktop-nav" aria-label="ניווט ראשי" data-i18n-aria="navigation">
       <a href="#collection" data-i18n="collection">הקולקציה</a>
-      <a href="#details" data-i18n="details">מקרוב</a>
+      <a href="#anatomy" data-i18n="anatomyNav">פירוק הנעל</a>
       <a href="#editorial" data-i18n="journal">הסיפור</a><a href="#brandStudio" data-i18n="brandNav">המותג שלך כאן</a>
     </nav>
     <div class="header-actions">
@@ -60,6 +62,7 @@
         <h1 id="heroTitle"><span data-i18n="flagshipTitle1">נועד לזוז.</span><span class="hero-line-accent" data-i18n="flagshipTitle2">נשאר בזיכרון.</span></h1>
         <p class="hero-description" data-i18n="flagshipDescription">צורה עם אופי. טקסטורה שמזמינה להתקרב. הכירו את MOVE 01, מכל זווית.</p>
         <div class="hero-ctas"><button class="button button-dark" data-open-product="move"><span data-i18n="flagshipShop">לגלות את MOVE 01</span><span class="button-arrow" aria-hidden="true">↗</span></button><a class="text-button" href="#collection"><span data-i18n="flagshipCollection">לכל הקולקציה</span><span aria-hidden="true">↓</span></a></div>
+        <button class="text-button flagship-lab-entry" data-open-anatomy><span aria-hidden="true">✳</span><span data-i18n="anatomyEntry">לפרק את הנעל מבפנים</span><span aria-hidden="true">↗</span></button>
         <div class="flagship-edition"><span dir="ltr">01 — 12</span><span data-i18n="flagshipEdition">פריט אחד. עולם של פרטים.</span></div>
         <button class="intro-replay" id="replayOpening"><span aria-hidden="true">▶</span><span data-i18n="introReplay">לצפות בפתיח</span></button>
       </div>
@@ -97,9 +100,50 @@
       <p class="catalog-note" data-i18n="catalogNote">קטלוג קונספט • מוצרים ומחירים להדגמה בלבד</p>
     </section>
 
+    <section class="anatomy-section" aria-labelledby="anatomyTitle">
+      <div class="shoe-lab section-shell" id="anatomy" tabindex="-1" aria-labelledby="anatomyTitle">
+        <div class="lab-layout">
+          <div class="lab-stage-panel">
+            <div class="lab-stage-head"><span dir="ltr">MOVE 01 / DESIGN LAB</span><span class="lab-live-label"><span aria-hidden="true"></span><span data-lab-i18n="interactive">תלת־ממד אינטראקטיבי</span></span></div>
+<div class="lab-view-tabs" role="group" aria-label="תמונת מוצר או מודל" data-i18n-aria="representationLabel"><button data-lab-view="photo" aria-pressed="false" data-i18n="photoMode">תמונת המוצר</button><button data-lab-view="model" aria-pressed="true" data-i18n="modelMode">מודל 3D להדגמה</button></div><p class="lab-accuracy" data-i18n="modelAccuracy">מודל התלת־ממד הוא המחשה בקירוב. תמונת המוצר המקורית מוצגת כאן להשוואה.</p>
+            <div class="lab-viewport" id="shoeViewport" aria-busy="false">
+              <span class="lab-background-word" aria-hidden="true" dir="ltr">MOVE</span>
+              <img class="lab-poster" id="shoePoster" src="assets/move-solid-v4-poster.webp" width="1200" height="1200" loading="lazy" alt="נעל קונספט MOVE 01" data-lab-alt="posterAlt">
+              <img id="shoeReference" class="lab-reference" src="assets/sneaker.webp" width="1200" height="1200" loading="lazy" alt="תמונת המוצר המקורית MOVE 01" data-i18n-alt="shoeAlt">
+              <div id="shoeCanvasMount" class="lab-canvas-mount"></div>
+              <button class="lab-start" id="shoeStart"><span aria-hidden="true">↻</span><span data-lab-i18n="start">לסובב ולגלות מבפנים</span></button>
+              <div class="lab-loader" id="shoeLoader" hidden><span class="lab-loader-ring" aria-hidden="true"></span><span data-lab-i18n="loading">מכינים את הנעל שלך...</span></div>
+              <div class="lab-view-tools" role="group" aria-label="כלי תצוגה" data-lab-aria="viewTools"><button id="shoeReset" aria-label="איפוס התצוגה" data-lab-aria="reset">↺</button></div>
+              <div class="lab-drag-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg><span id="shoeDragHint" data-lab-i18n="dragHint">גררו לסיבוב. לחצו על הנעל לפירוק.</span></div>
+              <span class="lab-canvas-footer" id="shoeModelState" dir="ltr">01 / ASSEMBLED</span>
+            </div>
+            <div class="lab-toolbar"><div class="lab-mode-switch" role="group" aria-label="בחירת תצוגה" data-lab-aria="modeLabel"><button class="active" data-shoe-mode="assembled" aria-pressed="true" data-lab-i18n="assembled">שלמה</button><button data-shoe-mode="exploded" aria-pressed="false" data-lab-i18n="exploded">פירוק לשכבות</button><button data-shoe-mode="skeleton" aria-pressed="false" data-lab-i18n="skeleton">סקלטון</button></div><button id="shoeAuto" class="lab-auto" aria-pressed="false"><span aria-hidden="true">↻</span><span id="shoeAutoLabel" data-lab-i18n="autoRotate">סיבוב אוטומטי</span></button></div>
+            <div class="lab-slider-row"><label for="shoeExplodeRange" data-lab-i18n="separation">כמה להפריד?</label><input id="shoeExplodeRange" type="range" min="0" max="100" step="1" value="0" aria-valuetext="שלמה"><output id="shoeExplodeValue" for="shoeExplodeRange" dir="ltr">0%</output></div>
+            <p class="sr-only" id="shoeKeyboardHelp" data-lab-i18n="keyboardHelp">חיצים לסיבוב, פלוס ומינוס לזום, Enter לפירוק או הרכבה, Home לאיפוס.</p>
+            <p class="lab-status" id="shoeStatus" role="status" aria-live="polite"></p>
+          </div>
+          <aside class="lab-product-panel">
+            <p class="eyebrow" dir="ltr">THE ANATOMY OF MOVE</p>
+            <h3 id="anatomyTitle" data-lab-i18n="title">מבחוץ זה סטייל.<br>מבפנים זה סיפור.</h3>
+            <p class="lab-description" data-lab-i18n="intro">סובבו את הנעל לכל כיוון, הפרידו את השכבות וגלו את הצורה של כל חלק.</p>
+            <div class="lab-layer-list" role="group" aria-label="בחירת שכבה" data-lab-aria="layerLabel">
+              <button data-shoe-layer="UPPER" aria-pressed="false"><span class="lab-layer-number">01</span><span><strong data-lab-i18n="upper">גפת הסריג</strong><small data-lab-i18n="upperHint">מעטפת, פאנלים ושרוכים</small></span><span aria-hidden="true">↗</span></button>
+              <button data-shoe-layer="INSOLE" aria-pressed="false"><span class="lab-layer-number">02</span><span><strong data-lab-i18n="insole">המדרס</strong><small data-lab-i18n="insoleHint">השכבה שנמצאת בפנים</small></span><span aria-hidden="true">↗</span></button>
+              <button data-shoe-layer="CAGE" aria-pressed="false"><span class="lab-layer-number">03</span><span><strong data-lab-i18n="cage">המבנה הפנימי</strong><small data-lab-i18n="cageHint">רשת התמיכה של הקונספט</small></span><span aria-hidden="true">↗</span></button>
+              <button data-shoe-layer="MIDSOLE" aria-pressed="false"><span class="lab-layer-number">04</span><span><strong data-lab-i18n="midsole">שכבת הביניים</strong><small data-lab-i18n="midsoleHint">הצורה שמתחת למעטפת</small></span><span aria-hidden="true">↗</span></button>
+              <button data-shoe-layer="OUTSOLE" aria-pressed="false"><span class="lab-layer-number">05</span><span><strong data-lab-i18n="outsole">הסוליה החיצונית</strong><small data-lab-i18n="outsoleHint">לראות גם את הצד התחתון</small></span><span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="lab-finish-row"><span data-lab-i18n="finish">הנגיעה שלך</span><div class="lab-finishes" role="group" aria-label="בחירת צבע" data-lab-aria="colorLabel"><button data-shoe-color="orange" class="active" aria-pressed="true" style="--finish:#c56835" aria-label="כתום" data-lab-aria="orange"></button><button data-shoe-color="mint" aria-pressed="false" style="--finish:#6c8c69" aria-label="ירוק" data-lab-aria="mint"></button></div></div>
+            <div class="lab-purchase"><span dir="ltr">MOVE 01 <strong>₪490</strong></span><button class="button button-dark" data-open-product="move"><span data-lab-i18n="choose">לבחירת צבע ומידה</span><span class="button-arrow" aria-hidden="true">+</span></button></div>
+            <p class="lab-concept-note" data-lab-i18n="conceptNote">המחשת עיצוב קונספטואלית. המבנה אינו מפרט של נעל אמיתית.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
     <section class="details-section flagship-details" id="details" aria-labelledby="detailsTitle">
       <div class="details-heading section-shell"><p class="eyebrow" dir="ltr">THE OBJECT STUDY / MOVE 01</p><h2 id="detailsTitle"><span data-i18n="detailsLine1">ההבדל נמצא</span><span class="italic-serif" data-i18n="detailsLine2">בפרטים.</span></h2><p data-i18n="flagshipDetailsIntro">אותו פריט. שלוש נקודות מבט.</p></div>
-      <div class="flagship-study section-shell" id="anatomy" tabindex="-1" aria-labelledby="detailTitle">
+      <div class="flagship-study section-shell" id="photoStudy" tabindex="-1" aria-labelledby="detailTitle">
         <div class="detail-canvas" id="detailCanvas" data-view="whole">
           <span class="detail-background-type" aria-hidden="true" dir="ltr">MOVE</span>
           <div class="detail-image-wrap"><img id="detailImage" src="assets/sneaker.webp" width="1200" height="1200" loading="lazy" alt="פרטי נעל MOVE 01" data-i18n-alt="detailAlt"></div>
@@ -174,7 +218,7 @@
   <dialog id="compareDialog" class="shop-dialog compare-dialog" aria-labelledby="compareTitle"><button class="icon-button dialog-close" data-close-dialog="compareDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="compareBody"></div></dialog>
   <dialog id="sizeGuideDialog" class="shop-dialog size-guide-dialog" aria-labelledby="sizeGuideTitle"><button class="icon-button dialog-close" data-close-dialog="sizeGuideDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="sizeGuideBody"></div></dialog>
   <dialog id="orderHistoryDialog" class="shop-dialog history-dialog" aria-labelledby="orderHistoryTitle"><button class="icon-button dialog-close" data-close-dialog="orderHistoryDialog" aria-label="סגירה" data-i18n-aria="close">×</button><div id="orderHistoryBody"></div></dialog>
-  <dialog id="menuDialog" class="menu-dialog" aria-label="תפריט" data-i18n-aria="menu"><div class="drawer-header"><span class="logo"><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></span><button class="icon-button" data-close-dialog="menuDialog" aria-label="סגירה" data-i18n-aria="close">×</button></div><nav><a href="#collection" data-i18n="collection">הקולקציה</a><a href="#details" data-i18n="details">מקרוב</a><a href="#editorial" data-i18n="journal">הסיפור</a><a href="#brandStudio" data-i18n="brandNav">המותג שלך כאן</a><button class="text-button" id="menuFavorites" data-i18n="favorites">המועדפים שלי</button><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button></nav></dialog>
+  <dialog id="menuDialog" class="menu-dialog" aria-label="תפריט" data-i18n-aria="menu"><div class="drawer-header"><span class="logo"><bdi data-store-brand="mova">mova</bdi><span class="logo-dot" data-brand-mark>®</span></span><button class="icon-button" data-close-dialog="menuDialog" aria-label="סגירה" data-i18n-aria="close">×</button></div><nav><a href="#collection" data-i18n="collection">הקולקציה</a><a href="#anatomy" data-i18n="anatomyNav">פירוק הנעל</a><a href="#editorial" data-i18n="journal">הסיפור</a><a href="#brandStudio" data-i18n="brandNav">המותג שלך כאן</a><button class="text-button" id="menuFavorites" data-i18n="favorites">המועדפים שלי</button><button class="text-button" data-open-orders data-i18n="orderHistory">ההזמנות שלי</button></nav></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <noscript><p class="noscript">להתנסות בבחירת פריטים ובסל ההדגמה, יש לאפשר JavaScript בדפדפן.</p></noscript>
 

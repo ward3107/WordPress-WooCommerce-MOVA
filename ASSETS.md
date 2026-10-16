@@ -130,3 +130,7 @@ lighting, title and camera-style motion. Source-view fidelity limits remain.
 ## MOVE 01 flagship pilot (V9)
 
 No new raster assets were generated. The opening, hero poster and all three close-ups reuse `dist/assets/sneaker.webp`. The existing 12-frame MOVE turntable remains an illustrative AI image sequence. The approximate GLB, its poster and its modules are retained as archived source but are no longer referenced by the storefront page. Original-image close-ups replace the mismatched 3D presentation. The cinematic handoff animates the same image between measured screen rectangles; it does not generate a new product angle.
+
+## Restored anatomy (V11)
+
+The existing V4 approximate GLB and its poster are referenced by the storefront again at the user’s request. The five-layer assembly supports whole, exploded and skeleton views, alongside the original-photo study. The existing photo/model comparison and approximation labels remain visible. No product imagery or model geometry was regenerated. The renderer and model are deferred until the anatomy section is approached or opened.
