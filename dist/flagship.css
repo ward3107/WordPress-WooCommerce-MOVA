@@ -161,3 +161,11 @@ body[data-experience="flagship"] #productDialog[data-flagship-product] .purchase
 @media(prefers-reduced-motion:reduce) {
   .flagship-hero *,.flagship-details *,.cinema-handoff { animation: none!important; transition: none!important; }
 }
+
+/* The interactive anatomy remains alongside the original-photo study. */
+.anatomy-section { padding-block:78px 88px; background:var(--paper); }
+.anatomy-section .shoe-lab { margin-top:0; }
+.flagship-lab-entry { margin-top:16px; gap:12px; border-bottom:1px solid var(--line); }
+.flagship-lab-entry > span:first-child { font-size:20px; color:var(--studio-accent,#a93d1e); }
+.flagship-lab-entry + .flagship-edition { margin-top:28px; }
+@media(max-width:760px) { .anatomy-section { padding-block:48px 55px; }.flagship-lab-entry { font-size:12px; }.flagship-lab-entry + .flagship-edition { margin-top:22px; } }

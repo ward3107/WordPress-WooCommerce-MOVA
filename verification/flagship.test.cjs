@@ -32,7 +32,8 @@ function setup({fail=false,reduced=false}={}){
   try{
     assert.equal(d.querySelectorAll('.product-card').length,12);
     assert.ok(w.MOVA_FLAGSHIP.snapshot().initialized);
-    assert.equal($('#shoeCanvasMount'),null,'The approximate shoe is absent from this study');
+    assert.ok($('#shoeCanvasMount'),'The requested interactive anatomy is available');
+    assert.ok($('#photoStudy #detailCanvas'),'The original-photo study remains distinct');
     assert.ok(w.MOVA_INTRO.snapshot().active);
     assert.equal(images.length,0,'No turntable download at boot');
     w.MOVA_INTRO.finish();assert.ok(w.MOVA_FLAGSHIP.snapshot().transferring);
@@ -72,7 +73,7 @@ function setup({fail=false,reduced=false}={}){
     const selectedAngle=w.MOVA_FLAGSHIP.snapshot().spin.angle;
     $('.hero-product-tag').click();assert.ok($('#productDialog').open);
     assert.ok(Math.abs(Number($('#productSpinRange').value)-selectedAngle)<.05,'The product opens at the hero viewing angle, within the range control precision');assert.equal($('#productDialog').dataset.flagshipProduct,'move');
-    assert.equal($('.product-lab-link'),null,'No dead link to the removed approximate model');
+    assert.ok($('.product-lab-link'),'The product links to its restored anatomy');
     $('#addProductButton').click();assert.equal($('#cartCount').textContent,'1');
     $('#productDialog>[data-close-dialog]').click();assert.ok(!$('#productDialog').open);
     $('#flagshipViewport').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true,cancelable:true}));settle();

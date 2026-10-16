@@ -174,3 +174,8 @@ Object.assign(window.MOVA_STORE_COPY.ar, {
   "brandBriefTheme": "لوحة الألوان",
   "objectExplore": "اكتشف بزاوية 360°"
 });
+
+/* Restored interactive anatomy entry points. */
+Object.assign(window.MOVA_STORE_COPY.he, {"anatomyNav": "פירוק הנעל", "anatomyEntry": "לפרק את הנעל מבפנים"});
+Object.assign(window.MOVA_STORE_COPY.en, {"anatomyNav": "Inside the shoe", "anatomyEntry": "Take the sneaker apart"});
+Object.assign(window.MOVA_STORE_COPY.ar, {"anatomyNav": "داخل الحذاء", "anatomyEntry": "فكّك الحذاء واكتشف ما بداخله"});

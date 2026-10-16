@@ -103,7 +103,7 @@
     }
   });
 
-  function openProduct(id){return shop.openProduct(id);}
+  function openProduct(id,colorId){return shop.openProduct(id,colorId);}
   function renderProduct(){return shop.renderProduct();}
   function updateSelection(){return shop.updateSelection();}
   function addSelected(){return shop.addSelected();}
@@ -141,7 +141,7 @@
 
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button)return;
-    if(button.dataset.openProduct){openProduct(button.dataset.openProduct);return;}
+    if(button.dataset.openProduct){openProduct(button.dataset.openProduct,button.closest('.lab-purchase')?window.MOVA_LAB?.snapshot().variant:undefined);return;}
     if(button.dataset.closeDialog){closeDialog(button.dataset.closeDialog);return;}
     if(button.dataset.favorite){toggleFavorite(button.dataset.favorite);return;}
     if(button.dataset.cardColor){

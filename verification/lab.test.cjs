@@ -1,22 +1,24 @@
-// Archived V8 lab bridge. The live flagship is covered by flagship.test.cjs.
+// Live-page anatomy integration; WebGL rendering is checked separately on a device.
 const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
 const {JSDOM,VirtualConsole}=require(process.env.MOVA_DOM_MODULE||'jsdom');
 const root=path.join(__dirname,'..'),errors=[],consoleCapture=new VirtualConsole();
 consoleCapture.on('jsdomError',e=>errors.push(e.message));
-const dom=new JSDOM(fs.readFileSync(path.join(root,'verification/fixtures/legacy-lab-v8.html'),'utf8'),{url:'https://mova-motion-store.vasele66.chatgpt.site',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:consoleCapture});
+const dom=new JSDOM(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'),{url:'https://mova-motion-store.vasele66.chatgpt.site',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:consoleCapture});
 const w=dom.window,d=w.document,$=s=>d.querySelector(s),$$=s=>[...d.querySelectorAll(s)];
 const media={matches:false,addEventListener(){},addListener(){}};
 w.matchMedia=()=>media;w.HTMLElement.prototype.scrollIntoView=function(){};
 w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
 // No layout/WebGL is simulated. This test covers only the real DOM control bridge.
 w.sessionStorage.setItem('mova-opening-v9','1');
-for(const file of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js'])w.eval(fs.readFileSync(path.join(root,'dist',file),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'));w.eval(fs.readFileSync(path.join(root,'dist/shoe-lab.js'),'utf8'));
+for(const script of d.querySelectorAll('script[src]'))w.eval(fs.readFileSync(path.join(root,'dist',script.getAttribute('src').split('?')[0]),'utf8'));
 let options,calls=0,latest,resets=0,label,visible;
 const adapter={setState(s){latest=s;},setVisible(v){visible=v;},setLabel(v){label=v;},resetCamera(){resets++;},dispose(){}};
 const click=s=>{assert.ok($(s),s);$(s).click();};
 (async()=>{
  const a=w.MOVA_LAB.load(async o=>{options=o;calls++;return adapter;});
  const b=w.MOVA_LAB.load(async()=>{calls++;return adapter;});await Promise.all([a,b]);assert.equal(calls,1,'One lazy initialization');
+ assert.ok($('#detailCanvas'),'Photo close-ups remain available');assert.equal($$('[data-shoe-layer]').length,5);
+ click('.flagship-lab-entry');assert.equal(d.activeElement,$('#anatomy'),'Hero opens the actual anatomy');
  click('[data-lab-view="photo"]');assert.equal($('#shoeViewport').dataset.presentation,'photo');assert.equal(visible,false);assert.ok($('#shoeReset').disabled);
  click('[data-lab-view="model"]');assert.equal($('#shoeViewport').dataset.presentation,'model');assert.ok(!$('#shoeReset').disabled);
  assert.ok($('#shoeViewport').classList.contains('ready'));assert.equal($('#shoeViewport').getAttribute('aria-busy'),'false');
@@ -28,6 +30,8 @@ const click=s=>{assert.ok($(s),s);$(s).click();};
  click('[data-shoe-layer="CAGE"]');assert.equal(latest.selected,'CAGE');assert.equal(latest.explosion,100);assert.equal($('[data-shoe-layer="CAGE"]').getAttribute('aria-pressed'),'true');
  click('[data-shoe-layer="CAGE"]');assert.equal(latest.selected,null);
  click('[data-shoe-color="mint"]');assert.equal(latest.variant,'mint');
+ click('.lab-purchase [data-open-product]');assert.ok($('#productDialog').open);assert.equal($('[data-color-option="mint"]').getAttribute('aria-pressed'),'true','Buying from the lab preserves its accent color');
+ click('.product-lab-link');assert.ok(!$('#productDialog').open);assert.equal(latest.variant,'mint');
  click('#shoeAuto');assert.ok(latest.auto);options.onAutoStop();assert.ok(!latest.auto);
  options.onZoomChange(4.5);assert.equal(latest.zoom,4.5);options.onZoomChange(1);assert.equal(latest.zoom,1);assert.equal($('#shoeZoomIn'),null);assert.equal($('#shoeZoomOut'),null);
  options.onTap();assert.equal(latest.explosion,0);options.onTap();assert.equal(latest.explosion,100);
