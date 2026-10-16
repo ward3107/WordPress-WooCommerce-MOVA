@@ -54,6 +54,8 @@
     if($('#orderHistoryDialog').open)shop.renderHistory();
     if($('#sizeGuideDialog').open)shop.renderSizeGuide();
     safeWrite('mova-language',state.lang);
+    window.MOVA_FLAGSHIP?.translate();
+    window.MOVA_BRAND?.translate();
   }
 
   function renderProducts(){return shop.renderProducts();}
@@ -120,11 +122,11 @@
     $$('.detail-hotspot').forEach(b=>{b.hidden=state.detail!=='whole';});
   }
   function setMood(id,instant=false){
-    state.mood=core.product(id)?id:'move';
+    state.mood=['move','focus','carry'].includes(id)?id:'move';
     const p=core.product(state.mood),keys={move:['moodMoveHeadline','moodMoveCategory','MOVE','01'],focus:['moodFocusHeadline','moodFocusCategory','FOCUS','02'],carry:['moodGoHeadline','moodGoCategory','GO','03']}[state.mood];
     const img=$('#moodImage');
     clearTimeout(moodTimer);
-    const update=()=>{img.src=p.image;img.alt=localeText(p.title);$('#moodStage').dataset.mood=state.mood;$('#moodHeadline').textContent=t(keys[0]);$('#moodCategory').textContent=t(keys[1]);$('#moodBackword').textContent=keys[2];$('#moodStageIndex').textContent=keys[3]+' / 03';img.classList.remove('switching');};
+    const update=()=>{img.src=p.image;img.alt=localeText(p.title);$('#moodStage').dataset.mood=state.mood;$('#moodHeadline').textContent=t(keys[0]);$('#moodCategory').textContent=t(keys[1]);$('#moodBackword').textContent=keys[2];$('#moodStageIndex').textContent=keys[3]+' / 03';img.classList.remove('switching');if($('#moodMaterial')){$('#moodMaterial').textContent=localeText(p.material);$('#moodCode').textContent=p.code;$('#moodPrice').textContent=money(p.price);$('#moodStatus').textContent=p.code+' — '+t(keys[0]);}};
     if(instant||motionIsReduced())update();else{img.classList.add('switching');moodTimer=setTimeout(update,150);}
     $$('.mood-button').forEach(b=>{const active=b.dataset.mood===state.mood;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
   }
@@ -190,7 +192,7 @@
     scrollFrame=0;$('#siteHeader').classList.toggle('scrolled',window.scrollY>20);
     if(motionIsReduced()||document.hidden)return;
     const hero=$('#heroStage').getBoundingClientRect();
-    if(hero.bottom>0&&hero.top<window.innerHeight){const progress=Math.max(0,Math.min(1,window.scrollY/700));$('#heroShoe').style.transform=`rotate(${-11+progress*7+pointerX*2}deg) rotateY(${pointerX*5}deg) rotateX(${-pointerY*3}deg)`;}
+    if(!document.body.dataset.experience&&hero.bottom>0&&hero.top<window.innerHeight){const progress=Math.max(0,Math.min(1,window.scrollY/700));$('#heroShoe').style.transform=`rotate(${-11+progress*7+pointerX*2}deg) rotateY(${pointerX*5}deg) rotateX(${-pointerY*3}deg)`;}
     const detail=$('#detailCanvas').getBoundingClientRect();
     if(detail.bottom>0&&detail.top<window.innerHeight){const progress=(window.innerHeight*.5-(detail.top+detail.height*.5))/window.innerHeight;$('#detailCanvas').style.setProperty('--detail-scroll',`${Math.max(-12,Math.min(12,progress*25))}px`);$('#detailCanvas').style.setProperty('--detail-rotation',`${Math.max(-3,Math.min(3,progress*7))}deg`);}
   }
@@ -205,9 +207,11 @@
     if(event.key==='mova-cart'){state.cart=core.sanitizeCart(safeRead('mova-cart',[]));updateCartCount();renderCart();if($('#checkoutDialog').open)renderCheckout();}
   });
   applyLanguage();
+  window.MOVA_FLAGSHIP?.init({t,reduced:motionIsReduced});
+  window.MOVA_BRAND?.init({t,phone:brand.contactInternational});
   window.MOVA_INTRO?.init({t,reduced:motionIsReduced});
   if('IntersectionObserver' in window){
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.1});
-    $$('.section-top,.details-heading,.detail-description,.editorial-photo,.editorial-copy,.mood-heading,.invitation').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
+    $$('.section-top,.details-heading,.detail-description,.editorial-photo,.editorial-copy,.mood-heading,.brand-studio-heading').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
   }
 })();

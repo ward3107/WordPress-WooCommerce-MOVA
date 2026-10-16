@@ -11,7 +11,7 @@ function setup(stored={},blocked=false){
  w.fetch=()=>{throw Error('The shopping demo must not make network requests');};
  for(const [k,v] of Object.entries(stored))w.localStorage.setItem(k,JSON.stringify(v));
  if(blocked){w.Storage.prototype.getItem=function(){throw Error('storage blocked');};w.Storage.prototype.setItem=function(){throw Error('storage blocked');};}
- try{w.sessionStorage.setItem('mova-opening-v8','1');}catch{}
+ try{w.sessionStorage.setItem('mova-opening-v9','1');}catch{}
 for(const file of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js','app.js'])w.eval(fs.readFileSync(path.join(root,'dist',file),'utf8'));
  const click=s=>{const el=$(s);assert.ok(el,'Control missing: '+s);el.click();};
  const set=(s,value,type='change')=>{const el=$(s);assert.ok(el,s);if(el.type==='checkbox')el.checked=value;else el.value=value;el.dispatchEvent(new w.Event(type,{bubbles:true}));};

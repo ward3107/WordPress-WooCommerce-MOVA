@@ -12,7 +12,7 @@ let frame=0,loads=0,spinLoads=0,clock=1000;Object.defineProperty(w.performance,'
 const flush=()=>{for(let i=0;frames.size&&i<500;i++){const batch=[...frames.values()];frames.clear();clock+=16.667;batch.forEach(f=>f(clock));}};
 // Decode completion is simulated, not image pixels or network availability.
 w.Image=class {set src(value){if(value.includes('/spin/')){spinLoads++;this.naturalWidth=1448;this.naturalHeight=1086;}else{loads++;this.naturalWidth=1440;this.naturalHeight=1440;}this.value=value;this.onload?.();}};
-w.sessionStorage.setItem('mova-opening-v8','1');
+w.sessionStorage.setItem('mova-opening-v9','1');
 for(const f of ['catalog.js','store-core.js','store-copy.js','product-zoom.js','product-spin.js','store-ui.js','cinematic-opening.js','app.js'])w.eval(fs.readFileSync(path.join(root,'dist',f),'utf8'));flush();
 const click=s=>{assert.ok($(s),s);$(s).click();flush();};
 const pointer=(type,id,x,y)=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId:id,pointerType:'touch',button:0,clientX:x,clientY:y});Object.defineProperty(e,'timeStamp',{value:clock});$('#productVisual').dispatchEvent(e);flush();};

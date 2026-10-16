@@ -21,7 +21,7 @@ window.MOVA_SPIN=(()=>{
   });
   cache.set(spec.src,promise);promise.catch(()=>{if(cache.get(spec.src)===promise)cache.delete(spec.src);});return promise;
  }
- function attach({viewport,image,spec,fit='track',drag=false,initialFrame=0,onFrame=()=>{},onPosition=()=>{},onMotion=()=>{},onReady=()=>{},onError=()=>{},reduced=()=>document.documentElement.classList.contains('paused-motion')||!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches}){
+ function attach({viewport,image,spec,fit='track',drag=false,initialFrame=0,preloadOnHover=true,onFrame=()=>{},onPosition=()=>{},onMotion=()=>{},onReady=()=>{},onError=()=>{},reduced=()=>document.documentElement.classList.contains('paused-motion')||!!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches}){
   if(!viewport||!image||!spec||spec.frames!==spec.columns*spec.rows)throw Error('A valid product turntable is required');
   let position=Number.isFinite(initialFrame)?mod(initialFrame,spec.frames):0,target=position,velocity=0;
   let ready=false,enabled=true,disposed=false,pending=null,raf=0,lastTick=0,lastSample=0,lastMove=0,lastNotified=-1,dragging=false,automatic=false,viewportWidth=360;
@@ -90,11 +90,11 @@ window.MOVA_SPIN=(()=>{
     resize();paint();onReady();return true;
    }).catch(error=>{if(!disposed){pending=null;paint();viewport.dataset.spinState='error';onError(error);}return false;});return pending;
   }
-  function goTo(value,{animate=false}={}){
+  function goTo(value,{animate=false,loadImage=true}={}){
    if(disposed||!Number.isFinite(value))return Promise.resolve(false);
    stop();target=value;
    if(animate&&!reduced())request();else{position=value;paint();}
-   return load();
+   return loadImage?load():Promise.resolve(ready);
   }
   function advance(delta){return goTo(Math.round(target)+delta,{animate:true});}
   function beginDrag(){if(disposed)return;stop();dragging=true;lastSample=now();load();}
@@ -115,7 +115,7 @@ window.MOVA_SPIN=(()=>{
   function setAuto(value){stop();automatic=!!value&&!reduced();onMotion(automatic);if(automatic)load();request();return automatic;}
   function setEnabled(value){stop();enabled=!!value;paint();if(enabled)load();}
   function freeze(){stop();position=target=Math.round(position);paint();}
-  listen(viewport,'pointerenter',()=>load(),{passive:true});listen(viewport,'focusin',()=>load(),{passive:true});
+  if(preloadOnHover){listen(viewport,'pointerenter',()=>load(),{passive:true});listen(viewport,'focusin',()=>load(),{passive:true});}
   listen(window,'mova:motion',e=>{if(e.detail?.paused)freeze();else onMotion(automatic);});
   listen(document,'visibilitychange',()=>{if(document.hidden)freeze();});
   listen(window,'blur',()=>{pointer=null;axis=null;multiple=false;pointers.clear();freeze();});
@@ -150,7 +150,7 @@ window.MOVA_SPIN=(()=>{
   }
   const observer=typeof ResizeObserver==='function'?new ResizeObserver(resize):null;
   observer?.observe(viewport);listen(window,'resize',resize);
-  resize();paint();if(cache.has(spec.src))load();
+  resize();paint();if(preloadOnHover&&cache.has(spec.src))load();
   return {load,resize,goTo,advance,rotate,beginDrag,endDrag,setEnabled,setAuto,stop:freeze,seekAngle:angle=>goTo(angle/360*spec.frames),snapshot:()=>({frame:wrap(position,spec.frames),position:mod(position,spec.frames),target:mod(target,spec.frames),angle:mod(position,spec.frames)*360/spec.frames,velocity,animating:!!raf,dragging,automatic,ready,enabled,disposed}),destroy(){
    if(disposed)return;stop();disposed=true;observer?.disconnect();removers.forEach(fn=>fn());
    for(const id of pointers){try{viewport.releasePointerCapture(id);}catch{}}
