@@ -5,8 +5,8 @@ import {RoomEnvironment} from './assets/vendor/RoomEnvironment.js';
 import {mergeGeometries} from './assets/vendor/BufferGeometryUtils.js';
 
 const PARTS=['UPPER','INSOLE','CAGE','MIDSOLE','OUTSOLE'];
-const OFFSETS={UPPER:1.18,INSOLE:.48,CAGE:-.04,MIDSOLE:-.55,OUTSOLE:-1.08};
-const BASE_COLORS={KNIT:'#e4decc',PANEL:'#e5decd',FOAM:'#e9e1cf',RUBBER:'#30332f',ACCENT:'#bc5027',LINING:'#877a65',CAGE:'#a9bd72',LACES:'#eee8d5'};
+const OFFSETS={UPPER:1.5,INSOLE:.6,CAGE:.03,MIDSOLE:-.7,OUTSOLE:-1.42};
+const BASE_COLORS={KNIT:'#e4decc',PANEL:'#ded6c4',FOAM:'#e9e1ce',RUBBER:'#30312f',ACCENT:'#b94a22',LINING:'#9c907a',CAGE:'#a9bd72',LACES:'#eee8d5'};
 
 export function placeLayer(part,progress){
   const world=part.baseWorld.clone();world.y+=OFFSETS[part.key]*progress;
@@ -73,7 +73,7 @@ export async function createShoeViewer({mount,onTap,onAutoStop,onReset,onZoom,on
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
   renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   const scene=new THREE.Scene();
-  const camera=new THREE.OrthographicCamera(-3,3,2,-2,.1,50);camera.position.set(-3.97,3.42,8.52);
+  const camera=new THREE.OrthographicCamera(-3,3,2,-2,.1,50);camera.position.set(-5.51,2.78,7.87);
   const controls=configureShoeControls(camera,renderer.domElement);
   // The 3D area owns pinch/drag gestures; surrounding content scrolls normally.
   renderer.domElement.style.touchAction='none';renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('role','img');renderer.domElement.setAttribute('aria-describedby','shoeKeyboardHelp');
@@ -84,7 +84,7 @@ export async function createShoeViewer({mount,onTap,onAutoStop,onReset,onZoom,on
   const pmrem=new THREE.PMREMGenerator(renderer),room=new RoomEnvironment(),env=pmrem.fromScene(room,.04);
   scene.environment=env.texture;room.dispose();pmrem.dispose();
   let asset;
-  try{asset=await new GLTFLoader().loadAsync(new URL('./assets/move-solid-v4.glb',import.meta.url).href);}catch(error){renderer.dispose();env.dispose();renderer.domElement.remove();throw error;}
+  try{asset=await new GLTFLoader().loadAsync(new URL('./assets/move-anatomy-v5.glb',import.meta.url).href);}catch(error){renderer.dispose();env.dispose();renderer.domElement.remove();throw error;}
   const root=asset.scene.getObjectByName('HERO_MOVE');
   if(!root){renderer.dispose();renderer.domElement.remove();throw new Error('Invalid MOVE assembly');}
   const box=new THREE.Box3().setFromObject(root),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
@@ -112,7 +112,7 @@ export async function createShoeViewer({mount,onTap,onAutoStop,onReset,onZoom,on
   let width=1,height=1,viewHeight=3;
   function fitCamera(progress){
     const aspect=width/height;
-    viewHeight=Math.max(2.7,3.4/aspect)+(Math.max(4.8,3.4/aspect)-Math.max(2.7,3.4/aspect))*progress;
+    viewHeight=Math.max(2.7,3.4/aspect)+(Math.max(5.4,3.4/aspect)-Math.max(2.7,3.4/aspect))*progress;
     camera.left=-viewHeight*aspect/2;camera.right=viewHeight*aspect/2;camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.zoom=ui.zoom;camera.updateProjectionMatrix();
   }
   function resize(){const r=mount.getBoundingClientRect();width=Math.max(1,r.width);height=Math.max(1,r.height);renderer.setSize(width,height,false);fitCamera(ui.explosion/100);dirty=true;requestFrame();}
@@ -143,7 +143,7 @@ export async function createShoeViewer({mount,onTap,onAutoStop,onReset,onZoom,on
       if(Math.abs(target-part.progress)>.0006)moving=true;
       placeLayer(part,part.progress);
     }
-    fitCamera(parts[0].progress);floor.position.y=footbox.min.y-.075-1.08*parts[4].progress;
+    fitCamera(parts[0].progress);floor.position.y=footbox.min.y-.075-1.42*parts[4].progress;
     controls.autoRotate=ui.auto&&!ui.reduced;const orbitChanged=controls.update(dt);renderer.render(scene,camera);dirty=false;
     if(moving||controls.autoRotate||orbitChanged)requestFrame();
   }

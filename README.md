@@ -32,7 +32,7 @@ The theme uses native WooCommerce products, variations, stock, cart and checkout
 - Editorial MOVE, FOCUS and CARRY chapters, with a consistent product sheet for every catalog item.
 - Separate WooCommerce trial theme with native commerce and media-library turntable configuration.
 
-The 360° sequences contain twelve AI-generated concept views per product, with frame blending. They are not product scans or continuous 3D models. The MOVE 01 flagship study uses the original product image for its hero, opening and close-ups. The approximate 3D anatomy lab is available alongside the photo study, with whole, exploded and skeleton modes. Its renderer and five-layer model load only when the lab is reached or requested. Zoom magnifies available image detail.
+The 360° sequences contain twelve AI-generated concept views per product, with a single opaque view at each displayed angle. They are not product scans or continuous 3D models. The MOVE 01 flagship study uses the original product image for its hero, opening and close-ups. The approximate 3D anatomy lab is available alongside the photo study, with whole, exploded and skeleton modes. Its renderer and five-layer model load only when the lab is reached or requested. Zoom magnifies available image detail.
 
 ## Repository layout
 
@@ -77,3 +77,11 @@ The “Your brand here” studio previews a business name and a Terracotta, Fore
 Run `verification/brand-studio.test.cjs` with `MOVA_DOM_MODULE` set to jsdom for branding, palette contrast, persistence, language changes, catalog chapter selection and cart-preservation checks. Full-page startup, existing commerce and gesture checks also pass. V10 adds no new image assets; initial local resources are approximately 543 KB, with turntables still deferred until interaction. These are source-size and DOM checks, not measured mobile loading time, browser screenshots or physical-device performance.
 
 The shoe anatomy experience is restored at `#anatomy`, with five selectable layers, adjustable separation, tap to assemble/disassemble, rotation, two-finger zoom and a photo/model comparison. The V10 catalog and personal brand studio remain available. Model geometry/reassembly and actual OrbitControls gesture logic are covered by `verification/model.test.mjs` and `verification/3d-gestures.test.mjs`; these CPU/DOM checks do not replace visual WebGL testing on a real device.
+
+## Cleaner rotation and reference-led anatomy
+
+V12 removes the two-image crossfade that produced transparent duplicate edges during rotation. Each product now displays one complete source view, immediately hides the original poster, and retains fractional input, momentum, pinch zoom and frame wrapping. Moving cutout shadows are removed. The existing twelve viewpoints remain discrete; this fix does not create intermediate views or make the sequences scan-quality 3D.
+
+The MOVE anatomy model was rebuilt against the original photograph: broader forefoot, traced cream and orange overlays, sculpted sole, toe protection, collar, lace loops and molded heel/arch inserts. It remains an approximate concept, especially on unseen surfaces and internal layers. Whole, exploded and skeleton modes remain available. `scripts/build-reference-shoe.py` creates `dist/assets/move-anatomy-v5.glb`; visible boundaries are recorded in `data/move-reference-landmarks.json`. The former GLB is retained in `data/move-source-v4.glb` as the fabric reference, outside the deployed assets. No product photographs were replaced.
+
+See `verification/v12.md` for checks and limits. The downloadable WooCommerce trial ZIP remains the earlier package; rebuilding it uses the corrected shared spin module.

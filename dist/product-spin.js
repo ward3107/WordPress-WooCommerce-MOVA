@@ -1,12 +1,11 @@
-/* Continuous turntables: aligned source views, fractional blending and momentum.
- * Interpolation does not create additional photographed viewpoints.
+/* Product turntables: one opaque source view with fractional gesture momentum.
+ * Crossfading transparent silhouettes makes ghosts, not additional viewpoints.
  */
 window.MOVA_SPIN=(()=>{
  'use strict';
  const cache=new Map(),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const mod=(n,count)=>((n%count)+count)%count;
  const wrap=(n,count)=>mod(Math.round(n),count);
- const blend=(position,count)=>{const p=mod(position,count),from=Math.floor(p);return {from,to:(from+1)%count,mix:p-from};};
  const coast=(velocity,dt,tau=170)=>{const decay=Math.exp(-dt/tau);return {distance:velocity*tau*(1-decay),velocity:velocity*decay};};
  function loadAtlas(spec){
   if(cache.has(spec.src))return cache.get(spec.src);
@@ -28,7 +27,7 @@ window.MOVA_SPIN=(()=>{
   let pointer=null,axis=null,multiple=false,suppressUntil=0;
   const pointers=new Set(),removers=[],surface=document.createElement('span');
   surface.className='spin-surface';surface.setAttribute('aria-hidden','true');surface.hidden=true;
-  const tiles=[0,1].map(()=>{const tile=document.createElement('span');tile.className='spin-tile';surface.append(tile);return tile;});
+  const tile=document.createElement('span');tile.className='spin-tile';surface.append(tile);
   image.parentElement.append(surface);image.draggable=false;
   const listen=(el,type,fn,options)=>{el.addEventListener(type,fn,options);removers.push(()=>el.removeEventListener(type,fn,options));};
   const now=()=>performance.now();
@@ -46,17 +45,15 @@ window.MOVA_SPIN=(()=>{
    const size=Math.max(1,Math.min(r.width-24,r.height-(fit==='card'?74:0)));
    surface.style.width=size+'px';surface.style.height=size+'px';surface.style.left='50%';surface.style.top=fit==='card'?'calc(50% - 10px)':'50%';surface.style.transform='translate(-50%,-50%)';
   }
-  function setTile(tile,frame,opacity){
+  function setTile(frame){
    if(tile.dataset.frame!==String(frame)){
     const l=layouts[frame];tile.dataset.frame=String(frame);tile.style.width=l.width+'%';tile.style.height=l.height+'%';tile.style.left=l.left+'%';tile.style.top=l.top+'%';tile.style.backgroundSize=l.size;tile.style.backgroundPosition=l.at;
    }
-   tile.style.opacity=opacity.toFixed(5);
   }
   function paint(){
    if(disposed)return;
-   const b=blend(position,spec.frames),mix=reduced()?(b.mix>=.5?1:0):b.mix;
-   setTile(tiles[0],b.from,1-mix);setTile(tiles[1],b.to,mix);
    const visible=enabled&&ready,frame=wrap(position,spec.frames),angle=mod(position,spec.frames)*360/spec.frames;
+   setTile(frame);
    surface.hidden=!visible;image.classList.toggle('spin-poster-hidden',visible);viewport.classList.toggle('has-spin',visible);
    viewport.dataset.spinFrame=String(frame);viewport.dataset.spinAngle=angle.toFixed(2);viewport.dataset.spinState=ready?'ready':pending?'loading':'poster';
    if(frame!==lastNotified){lastNotified=frame;onFrame(frame,spec.frames);}
@@ -86,7 +83,7 @@ window.MOVA_SPIN=(()=>{
    viewport.dataset.spinState='loading';
    pending=loadAtlas(spec).then(()=>{
     if(disposed)return false;
-    ready=true;for(const tile of tiles)tile.style.backgroundImage=`url("${spec.src}")`;
+    ready=true;tile.style.backgroundImage=`url("${spec.src}")`;
     resize();paint();onReady();return true;
    }).catch(error=>{if(!disposed){pending=null;paint();viewport.dataset.spinState='error';onError(error);}return false;});return pending;
   }
@@ -157,5 +154,5 @@ window.MOVA_SPIN=(()=>{
    pointers.clear();surface.remove();image.classList.remove('spin-poster-hidden');viewport.classList.remove('has-spin');delete viewport.dataset.spinFrame;delete viewport.dataset.spinAngle;delete viewport.dataset.spinState;
   }};
  }
- return Object.freeze({attach,wrap,blend,coast});
+ return Object.freeze({attach,wrap,coast});
 })();

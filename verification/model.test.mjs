@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from '../dist/assets/vendor/three.module.js';
 import {GLTFLoader} from '../dist/assets/vendor/GLTFLoader.js';
 import {optimizeLayers,placeLayer} from '../dist/shoe-viewer.js';
-const bytes=fs.readFileSync(new URL('../dist/assets/move-solid-v4.glb',import.meta.url));
+const bytes=fs.readFileSync(new URL('../dist/assets/move-anatomy-v5.glb',import.meta.url));
 const array=bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength);
 // CPU-only geometry verification: image pixels are inspected in asset renders.
 // A texture placeholder lets the real GLTF parser verify the embedded geometry
@@ -15,9 +15,9 @@ const count=object=>{let n=0;object.traverse(o=>{if(o.isMesh)n++;});return n;};
 const names=['UPPER','INSOLE','CAGE','MIDSOLE','OUTSOLE'];
 names.forEach(key=>assert.ok(root.getObjectByName('LAYER_'+key)));
 const before=new THREE.Box3().setFromObject(root),dimensions=before.getSize(new THREE.Vector3());
-assert.ok(dimensions.x>.27&&dimensions.x<.31,'Original metre dimensions are plausible');
+assert.ok(dimensions.x>.30&&dimensions.x<.34,'Original metre dimensions are plausible');
 assert.ok(dimensions.y>.13&&dimensions.y<.20,'Chunky silhouette and raised tongue are retained');
-assert.ok(dimensions.z>.08&&dimensions.z<.13);
+assert.ok(dimensions.z>.12&&dimensions.z<.14);
 const originalCount=count(root);root.removeFromParent();optimizeLayers(root);
 const optimizedCount=count(root);assert.ok(optimizedCount<25,'Batched mobile draw call budget');
 assert.ok(optimizedCount<originalCount/3);
@@ -38,7 +38,7 @@ const after=new THREE.Box3().setFromObject(root);
 assert.ok(before.min.distanceTo(after.min)<1e-5&&before.max.distanceTo(after.max)<1e-5,'Batching preserves geometry');
 const model=new THREE.Group();model.add(root);root.position.sub(before.getCenter(new THREE.Vector3()));model.scale.setScalar(3.1/dimensions.x);model.updateMatrixWorld(true);
 const parts=names.map(key=>{const node=root.getObjectByName('LAYER_'+key);return {node,key,baseWorld:node.getWorldPosition(new THREE.Vector3())};});
-const expected={UPPER:1.18,INSOLE:.48,CAGE:-.04,MIDSOLE:-.55,OUTSOLE:-1.08};
+const expected={UPPER:1.5,INSOLE:.6,CAGE:.03,MIDSOLE:-.7,OUTSOLE:-1.42};
 for(const p of parts){placeLayer(p,1);model.updateMatrixWorld(true);const current=p.node.getWorldPosition(new THREE.Vector3());assert.ok(Math.abs(current.y-p.baseWorld.y-expected[p.key])<1e-5);assert.ok(Math.abs(current.x-p.baseWorld.x)<1e-5);assert.ok(Math.abs(current.z-p.baseWorld.z)<1e-5);}
 // Adjacent exploded layers must be visibly separated in the delivery axis.
 const bounds=parts.map(p=>new THREE.Box3().setFromObject(p.node));

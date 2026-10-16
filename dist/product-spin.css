@@ -1,12 +1,11 @@
 /* Distinct viewpoints share the existing product photograph frame. */
 .spin-surface{display:block;position:absolute;inset:0;isolation:isolate;pointer-events:none;user-select:none;-webkit-user-select:none}
-.spin-tile{position:absolute;display:block;width:100%;height:100%;left:50%;top:50%;transform:translate3d(-50%,-50%,0);background-repeat:no-repeat;mix-blend-mode:plus-lighter}
-.is-spinning .spin-tile{will-change:opacity}
-.spin-surface[hidden]{display:none!important}.spin-poster-hidden{opacity:0!important}
-.product-image-track .spin-surface{width:100%;height:100%;filter:var(--product-filter,none) drop-shadow(0 15px 15px #473e3017)}
+.spin-tile{position:absolute;display:block;width:100%;height:100%;left:50%;top:50%;transform:translate3d(-50%,-50%,0);background-repeat:no-repeat;opacity:1;mix-blend-mode:normal;transition:none}
+.spin-surface[hidden]{display:none!important}.spin-poster-hidden{opacity:0!important;visibility:hidden!important;transition:none!important}
+.product-image-track .spin-surface{width:100%;height:100%;filter:var(--product-filter,none)}
 .product-open[data-spin-frame],.hero-shoe-launch[data-spin-frame]{touch-action:pan-y pinch-zoom;cursor:grab;user-select:none;-webkit-user-select:none}
 .product-open.has-spin:active,.hero-shoe-launch.has-spin:active{cursor:grabbing}
-.product-open .spin-surface{inset:auto;filter:var(--spin-filter,none) drop-shadow(0 15px 13px #58442b17)}
+.product-open .spin-surface{inset:auto;filter:var(--spin-filter,none)}
 .card-spin-label{position:absolute;inset-inline-end:15px;bottom:72px;display:flex;gap:5px;align-items:center;font-size:10px;letter-spacing:.6px;border:1px solid #1d282225;background:#fffefabb;padding:6px 9px;border-radius:30px;pointer-events:none;direction:ltr}
 .card-spin-label span{font-size:13px}.product-gallery #productVisual[data-gallery=spin]{cursor:grab}.product-gallery #productVisual[data-gallery=spin]:active{cursor:grabbing}
 .product-gallery #productVisual.is-zoomed{cursor:grab}.spin-controls{display:flex;gap:14px;align-items:center;padding:10px 17px;border-bottom:1px solid var(--line);background:#f3f2e9;direction:ltr}
@@ -14,5 +13,5 @@
 .spin-controls input{flex:1;min-width:0;min-height:36px;accent-color:var(--ink);cursor:ew-resize;direction:ltr}
 .spin-auto{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;font-size:13px}.spin-auto[aria-pressed=true]{background:var(--ink);color:var(--white)}
 .spin-note{display:block;font-size:9px;color:var(--muted);padding:9px 17px;border-bottom:1px solid var(--line);line-height:1.6}.gallery-tabs{grid-template-columns:repeat(4,minmax(0,1fr))!important}.gallery-tabs button{min-width:0}
-.hero-shoe-launch{position:relative;isolation:isolate}.hero-shoe-launch .spin-surface{inset:0;filter:drop-shadow(0 20px 20px #473e3017)}
+.hero-shoe-launch{position:relative;isolation:isolate}.hero-shoe-launch .spin-surface{inset:0}
 @media(max-width:760px){.card-spin-label{inset-inline-end:11px;bottom:62px;font-size:9px;padding:5px 8px}.spin-controls{padding:7px 15px;gap:10px}.spin-note{font-size:9px;padding:8px 15px}.gallery-tabs button{font-size:9px;padding-inline:5px;gap:5px}.gallery-tabs button span{font-size:8px}}
